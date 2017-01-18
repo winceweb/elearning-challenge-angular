@@ -1,3 +1,10 @@
-<h1>
-  {{title}}
-</h1>
+<router-outlet>
+  <img src="" alt="{{altImg}}" />
+  <nav>
+    <a routerLink="/" routerLinkActive="active">Accueil</a>
+    <a routerLink="/presentation">Présentation</a>
+    <a routerLink="/lessons">Les cours</a>
+    <a routerLink="/contact">Contact</a>
+    <a routerLink="/connexion">Connexion</a>
+  </nav>
+</router-outlet>

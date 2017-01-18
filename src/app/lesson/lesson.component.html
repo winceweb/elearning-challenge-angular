@@ -1,0 +1,16 @@
+<h2>Les cours</h2>
+<div>
+  <label>Lesson title:</label> <input #lessonTitle />
+  <button (click)="add(lessonTitle.value); lessonTitle.value=''">
+    Add
+  </button>
+</div>
+<ul class="lessons">
+  <li *ngFor="let lesson of lessons" (click)="gotoDetail(lesson)"
+      [class.selected]="lesson === selectedLesson">
+    <span class="badge">{{lesson.id}}</span>
+    <span>{{lesson.title}}</span>
+    <button class="delete"
+      (click)="delete(lesson); $event.stopPropagation()">x</button>
+  </li>
+</ul>
