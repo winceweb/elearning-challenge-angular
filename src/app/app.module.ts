@@ -8,63 +8,42 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { UsersComponent } from './users/users.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { HomeComponent } from './home/home.component';
 import { PresentationComponent } from './presentation/presentation.component';
 import { ContactComponent } from './contact/contact.component';
 import { LessonComponent } from './lesson/lesson.component';
 
 import { LessonService } from '../services/lesson.service';
 import { LessonDetailsComponent } from './lesson/lesson-details/lesson-details.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddclientComponent } from './addclient/addclient.component';
+import { AuthManager } from './authmanager';
+import { AuthService } from './auth.service';
 
 const appRoutes: Routes = [
-  {
-    path: 'connexion',
-    component: UsersComponent,
-    data: { title: 'Authentification' }
-  },
-  {
-    path: '',
-    component: HomeComponent,
-    data: { title: 'Page d\'accueil' }
-  },
-  {
-    path: 'presentation',
-    component: PresentationComponent,
-    data: { title: 'Page de présentation' }
-  },
-  {
-    path: 'contact',
-    component: ContactComponent,
-    data: { title: 'Formulaire de contact' }
-  },
-  {
-    path: 'lessons',
-    component: LessonComponent,
-    data: { title: 'Liste des leçons' }
-  },
-  {
-    path: 'lesson/:id',
-    component: LessonDetailsComponent,
-    data: { title: 'Détails d\'une lessons' }
-  },
-  {
-    path: '**',
-    component: PageNotFoundComponent
-  }
-
+  {path: '', component:LoginComponent},
+  {path: 'login', component:LoginComponent},
+  {path: 'dashboard', component:DashboardComponent},
+  {path: 'addclient', component:AddclientComponent},
+  {path: 'presentation', component:PresentationComponent},
+  {path: 'contact', component:ContactComponent},
+  {path: 'lessons', component:LessonComponent},
+  {path: 'lesson/:id', component:LessonDetailsComponent},
+  {path: '**', component: PageNotFoundComponent}
 ];
-
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersComponent,
     PageNotFoundComponent,
-    HomeComponent,
     PresentationComponent,
     ContactComponent,
     LessonComponent,
-    LessonDetailsComponent
+    LessonDetailsComponent,
+    LoginComponent,
+    DashboardComponent,
+    AddclientComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -74,7 +53,8 @@ const appRoutes: Routes = [
     JsonpModule
   ],
   providers: [
-    LessonService
+    LessonService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
