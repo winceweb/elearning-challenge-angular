@@ -35,7 +35,7 @@ export class LessonComponent implements OnInit {
 
   delete(lesson: Lesson): void {
     this.lessonService
-        .delete(lesson.id)
+        .delete(lesson.idLesson)
         .then(() => {
           this.lessons = this.lessons.filter(h => h !== lesson);
           if (this.selectedLesson === lesson) { this.selectedLesson = null; }
@@ -48,7 +48,7 @@ export class LessonComponent implements OnInit {
 
 
   gotoDetail(lesson: Lesson): void {
-    this.router.navigate(['/lesson', lesson.id]);
+    this.router.navigate(['/lesson', lesson.idLesson]);
   }
 }
 

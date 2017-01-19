@@ -9,7 +9,7 @@
   <li *ngFor="let lesson of lessons" (click)="gotoDetail(lesson)"
       [class.selected]="lesson === selectedLesson">
     <span class="badge">{{lesson.id}}</span>
-    <span>{{lesson.title}}</span>
+    <span>{{lesson.subject}}</span>
     <button class="delete"
       (click)="delete(lesson); $event.stopPropagation()">x</button>
   </li>
