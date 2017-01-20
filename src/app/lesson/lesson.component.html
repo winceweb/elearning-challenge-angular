@@ -1,17 +1,23 @@
 <h2>Les cours</h2>
+
+<!-- Modal ajotu de cours -->
 <div>
-  <label>Lesson title:</label> <input #lessonTitle />
-  
-  <button (click)="add(lessonTitle.value); lessonTitle.value=''">
-    Add
-  </button>
+  <form [formGroup]="addLessonForm" (ngSubmit)="addLesson($event)">
+    <input formControlName="subject" type="text" placeholder="intitulé du cours">
+    <input formControlName="content" type="text" placeholder="Contenu du cours">
+    <input formControlName="idCategory" type="text" placeholder="ID Catégorie">
+    <button type="submit">Ajouter</button>
+  </form>
 </div>
+<!-- Fin Modal -->
+
+
 <ul class="lessons">
   <li *ngFor="let lesson of lessons" (click)="gotoDetail(lesson)"
-      [class.selected]="lesson === selectedLesson">
-    <span class="badge">{{lesson.id}}</span>
-    <span>{{lesson.subject}}</span>
-    <button class="delete"
-      (click)="delete(lesson); $event.stopPropagation()">x</button>
-  </li>
+  [class.selected]="lesson === selectedLesson">
+  <span class="badge">{{lesson.id}}</span>
+  <span>{{lesson.subject}}</span>
+  <button *ngIf="isTeacher" class="delete"
+  (click)="delete(lesson); $event.stopPropagation()">x</button>
+</li>
 </ul>

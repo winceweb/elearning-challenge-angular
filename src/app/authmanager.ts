@@ -9,13 +9,17 @@ export class AuthManager implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if(next.url[0].path == 'login'){
-      if(this.auth.isAuthenticated){
-        console.log('You are already logged in');
-        return false;
+    if(next.url[0] != undefined){
+
+      if(next.url[0].path == 'login'){
+        if(this.auth.isAuthenticated){
+          console.log('You are already logged in');
+          return false;
+        }
+        else
+        return true;
       }
-      else
-      return true;
+
     }
 
     if(this.auth.isAuthenticated)
@@ -25,4 +29,5 @@ export class AuthManager implements CanActivate {
     this.router.navigate(['/login']);
     return false;
   }
+
 }
