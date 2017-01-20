@@ -20,6 +20,8 @@ import { AddclientComponent } from './addclient/addclient.component';
 import { AuthManager } from './authmanager';
 import { AuthService } from './auth.service';
 
+import { LocalStorageModule } from 'angular-2-local-storage';
+
 const appRoutes: Routes = [
   {path: '', component:LoginComponent},
   {path: 'login', component:LoginComponent},
@@ -50,7 +52,11 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    JsonpModule
+    JsonpModule,
+    LocalStorageModule.withConfig({
+      prefix: 'my-app',
+      storageType: 'localStorage'
+    })
   ],
   providers: [
     LessonService,

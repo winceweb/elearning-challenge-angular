@@ -19,8 +19,4 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/addclient']);
   }
 
-  authorizeclient() {
-    this.auth.authorizeuser();
-  }
-
 }

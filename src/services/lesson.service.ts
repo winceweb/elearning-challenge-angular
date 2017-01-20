@@ -5,16 +5,19 @@ import 'rxjs/add/operator/toPromise';
 
 import { Lesson } from '../models/lesson';
 
+import { LocalStorageService } from 'angular-2-local-storage';
+
 @Injectable()
 export class LessonService {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
   private lessonsUrl = 'http://localhost:8000/api/v1/lesson';  // URL to web api
-
-  constructor(private http: Http) { }
+  headers;
+  constructor(private http: Http, private localStorageService: LocalStorageService) {
+    this.headers = this.localStorageService.get('headers');
+  }
 
   getLessons(): Promise<Lesson[]> {
-    return this.http.get(this.lessonsUrl)
+    return this.http.get(this.lessonsUrl, {headers: this.headers})
                .toPromise()
                .then(response => response.json().data as Lesson[])
                .catch(this.handleError);
@@ -22,7 +25,7 @@ export class LessonService {
 
   getLesson(id: number): Promise<Lesson> {
     const url = `${this.lessonsUrl}/${id}`;
-    return this.http.get(url)
+    return this.http.get(url, {headers: this.headers})
       .toPromise()
       .then(response => response.json().data as Lesson)
       .catch(this.handleError);
