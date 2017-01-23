@@ -13,7 +13,6 @@ import { User } from '../models/user';
 @Injectable()
 export class AuthService {
 
-// !!!!!!!!! Ajouter isTeacher ici !!!!!!!!!
   isTeacher: boolean = false;
   isAuthenticated: boolean = false;
   userId;
