@@ -1,11 +1,81 @@
 <div *ngIf="lesson">
-  <h2>{{lesson.title}} details!</h2>
+  <button (click)="goBack()">Retour</button>
   <div>
-    <label>id: </label>{{lesson.id}}</div>
+    <h1>Cours <span>(catégorie: {{lesson.idCategory}})</span></h1>
+    <div>
+      <label>Date de création: </label>{{lesson.created_at}}
+      <br />
+      <label>Date de dernière modification: </label>{{lesson.updated_at}}
+    </div>
+    <img src="http://fakeimg.pl/300/" />
+  </div>
+
   <div>
-    <label>title: </label>
-    <input [(ngModel)]="lesson.title" placeholder="title" />
-   </div>
-  <button (click)="goBack()">Back</button>
-  <button (click)="save()">Save</button>
+    <h2>{{lesson.subject}}</h2>
+    <!-- Vote en étoile -->
+    <ul>
+      <li>x</li>
+      <li>x</li>
+      <li>x</li>
+      <li>.</li>
+      <li>.</li>
+    </ul>
+
+    <hr />
+
+    <label>Créateur du cours: </label>Utilisateur n°{{lesson.idUser}}
+    <br />
+    <span>3 problématiques</span>
+
+    <div>
+      <p>{{lesson.content}}</p>
+    </div>
+
+    <!-- Modal Button -->
+    <button>Noter ce cours</button>
+
+    <!-- Modal pour le vote -->
+    <div>
+      <!-- Vote en étoile -->
+      <ul>
+        <li>x</li>
+        <li>x</li>
+        <li>x</li>
+        <li>x</li>
+        <li>x</li>
+      </ul>
+    </div>
+
+    <!-- <div>
+      <label>title: </label>
+      <input [(ngModel)]="lesson.subject" placeholder="Titre du cours" />
+      <label>Contenu: </label>
+      <textarea [(ngModel)]="lesson.content"></textarea>
+    </div>
+    <button (click)="save()">Sauvegarder</button>-->
+
+    <div>
+      Cours de Stéphane en Slide
+    </div>
+
+  </div>
+
+
+  <div *ngIf="problematics">
+    <p>Voir <span>les 3 problématiques trouvées</span></p>
+
+    <div *ngFor="let problematic of problematics" [class.selected]="problematic === selectedProblematic">
+
+      <img (click)="gotoDetail(problematic)" src="http://fakeimg.pl/300/" />
+
+      <h5>{{problematic.entitled}}</h5>
+
+      <p>Utilisateur n°{{problematic.idUser}}</p>
+
+      <button class=""
+      (click)="gotoDetail(problematic)">Voir la problématique</button>
+    </div>
+  </div>
+
+
 </div>

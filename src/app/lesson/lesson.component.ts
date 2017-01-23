@@ -1,8 +1,12 @@
+import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Lesson } from '../../models/lesson';
 import { LessonService } from '../../services/lesson.service';
+import { AuthService } from '../auth.service';
+
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-lesson',
@@ -12,25 +16,52 @@ import { LessonService } from '../../services/lesson.service';
 export class LessonComponent implements OnInit {
   lessons: Lesson[];
   selectedLesson: Lesson;
+  isAuth: boolean = false;
+  isTeacher: boolean = false;
+  userName;
+
+  public addLessonForm = this.fb.group({
+    subject: ["", Validators.required],
+    content: ["", Validators.required],
+    idCategory: ["", Validators.required],
+    startDate: ["", Validators.required],
+    endDate: ["", Validators.required]
+  });
 
   constructor(
     private lessonService: LessonService,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService,
+    public fb: FormBuilder) {
+      this.isAuth = this.authService.isAuthenticated;
+      this.isTeacher = this.authService.isTeacher;
+
+      let userRole = this.authService.infoUser();
+      userRole.then((res) => {
+        if (res.isTeacher == 1){
+          this.isTeacher = true;
+          console.log('Tu es un Teacher !!');
+        }
+      });
+
+
+    }
 
   getLessons(): void {
     this.lessonService
         .getLessons()
         .then(lessons => this.lessons = lessons);
+
   }
 
-  add(title: string): void {
-    title = title.trim();
-    if (!title) { return; }
-    this.lessonService.create(title)
+  addLesson(event) {
+    if (!this.addLessonForm.value) { return; }
+    this.lessonService.create(this.addLessonForm.value)
       .then(lesson => {
-        this.lessons.push(lesson);
-        this.selectedLesson = null;
+        this.lessons.push(this.addLessonForm.value);
       });
+    // console.log(event);
+    // console.log(this.addLessonForm.value);
   }
 
   delete(lesson: Lesson): void {

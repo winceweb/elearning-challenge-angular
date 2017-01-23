@@ -13,6 +13,8 @@ import { ContactComponent } from './contact/contact.component';
 import { LessonComponent } from './lesson/lesson.component';
 
 import { LessonService } from '../services/lesson.service';
+import { ProblematicService } from '../services/problematic.service';
+
 import { LessonDetailsComponent } from './lesson/lesson-details/lesson-details.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -20,17 +22,18 @@ import { AddclientComponent } from './addclient/addclient.component';
 import { AuthManager } from './authmanager';
 import { AuthService } from './auth.service';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { LocalStorageModule } from 'angular-2-local-storage';
 
 const appRoutes: Routes = [
-  {path: '', component:LoginComponent},
-  {path: 'login', component:LoginComponent},
-  {path: 'dashboard', component:DashboardComponent},
-  {path: 'addclient', component:AddclientComponent},
+  {path: '', component:DashboardComponent, canActivate: [AuthManager]},
+  {path: 'login', component:LoginComponent, canActivate: [AuthManager]},
+  {path: 'addclient', component:AddclientComponent, canActivate: [AuthManager]},
   {path: 'presentation', component:PresentationComponent},
   {path: 'contact', component:ContactComponent},
-  {path: 'lessons', component:LessonComponent},
-  {path: 'lesson/:id', component:LessonDetailsComponent},
+  {path: 'lessons', component:LessonComponent, canActivate: [AuthManager]},
+  {path: 'lesson/:id', component:LessonDetailsComponent, canActivate: [AuthManager]},
   {path: '**', component: PageNotFoundComponent}
 ];
 
@@ -53,6 +56,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     JsonpModule,
+    ReactiveFormsModule,
     LocalStorageModule.withConfig({
       prefix: 'my-app',
       storageType: 'localStorage'
@@ -60,7 +64,9 @@ const appRoutes: Routes = [
   ],
   providers: [
     LessonService,
-    AuthService
+    ProblematicService,
+    AuthService,
+    AuthManager
   ],
   bootstrap: [AppComponent]
 })

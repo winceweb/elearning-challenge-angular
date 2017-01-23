@@ -15,8 +15,4 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  addclient() {
-    this.router.navigate(['/addclient']);
-  }
-
 }

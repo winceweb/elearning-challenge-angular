@@ -6,10 +6,14 @@ import { LocalStorageService } from 'angular-2-local-storage';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Lesson } from '../models/lesson'
+import { Lesson } from '../models/lesson';
+
+import { User } from '../models/user';
 
 @Injectable()
 export class AuthService {
+
+  isTeacher: boolean = false;
   isAuthenticated: boolean = false;
   userId;
   windowHandle;
@@ -24,6 +28,7 @@ export class AuthService {
       this.headers.append('Authorization', 'Bearer '+ this.localStorageService.get('token'));
 
       this.localStorageService.set('headers', this.headers);
+
     }
   }
 
@@ -44,5 +49,13 @@ export class AuthService {
 
     })
   }
+
+  infoUser(){
+    return this.http.get('http://localhost:8000/api/v1/getUser', {headers: this.headers})
+      .toPromise()
+      .then(response => response.json().data as User);
+  }
+
+
 
 }
