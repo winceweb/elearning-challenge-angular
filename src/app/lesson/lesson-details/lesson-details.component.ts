@@ -2,7 +2,7 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
-
+import { Router } from '@angular/router';
 import { Lesson }        from '../../../models/lesson';
 import { Problematic }        from '../../../models/problematic';
 import { LessonService } from '../../../services/lesson.service';
@@ -15,6 +15,7 @@ import { ProblematicService } from '../../../services/problematic.service';
 })
 export class LessonDetailsComponent implements OnInit {
   lesson: Lesson;
+  problematic: Problematic;
   problematics: Problematic[];
   selectedLesson: Lesson
 
@@ -22,6 +23,7 @@ export class LessonDetailsComponent implements OnInit {
     private lessonService: LessonService,
     private problematicService: ProblematicService,
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location
   ) {}
 
@@ -48,6 +50,11 @@ export class LessonDetailsComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  gotoDetail(problematic: Problematic): void {
+    this.router.navigate(['/problematic', problematic.idProblematic]);
+  }
+
 }
 
 
