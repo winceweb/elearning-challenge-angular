@@ -13,6 +13,8 @@ import { ContactComponent } from './contact/contact.component';
 import { LessonComponent } from './lesson/lesson.component';
 
 import { LessonService } from '../services/lesson.service';
+import { ProblematicService } from '../services/problematic.service';
+
 import { LessonDetailsComponent } from './lesson/lesson-details/lesson-details.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -62,6 +64,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     LessonService,
+    ProblematicService,
     AuthService,
     AuthManager
   ],

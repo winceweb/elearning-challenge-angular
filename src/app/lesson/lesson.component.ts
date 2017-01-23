@@ -18,11 +18,14 @@ export class LessonComponent implements OnInit {
   selectedLesson: Lesson;
   isAuth: boolean = false;
   isTeacher: boolean = false;
+  userName;
 
   public addLessonForm = this.fb.group({
     subject: ["", Validators.required],
     content: ["", Validators.required],
-    idCategory: ["", Validators.required]
+    idCategory: ["", Validators.required],
+    startDate: ["", Validators.required],
+    endDate: ["", Validators.required]
   });
 
   constructor(
@@ -41,12 +44,14 @@ export class LessonComponent implements OnInit {
         }
       });
 
+
     }
 
   getLessons(): void {
     this.lessonService
         .getLessons()
         .then(lessons => this.lessons = lessons);
+
   }
 
   addLesson(event) {
@@ -56,7 +61,7 @@ export class LessonComponent implements OnInit {
         this.lessons.push(this.addLessonForm.value);
       });
     // console.log(event);
-    console.log(this.addLessonForm.value);
+    // console.log(this.addLessonForm.value);
   }
 
   delete(lesson: Lesson): void {
