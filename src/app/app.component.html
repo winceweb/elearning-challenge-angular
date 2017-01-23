@@ -1,10 +1,18 @@
 <router-outlet>
-  <img src="" alt="{{altImg}}" />
-  <nav>
-    <a routerLink="/" routerLinkActive="active">Accueil</a>
-    <a routerLink="/presentation">Présentation</a>
-    <a routerLink="/lessons">Les cours</a>
-    <a routerLink="/contact">Contact</a>
-    <a routerLink="/connexion">Connexion</a>
-  </nav>
+<div class="container">
+	<div class="row norme-25">
+		<div class="col-xs-3">
+			<img class="logo" src="../public/images/logo.svg" />
+		</div>
+		<div class="col-xs-9 padding-top-20 text-right">
+			<nav>
+				<a routerLink="/" routerLinkActive="active">Accueil</a>
+				<a routerLink="/presentation">Présentation</a>
+				<a routerLink="/lessons">Formations</a>
+				<a routerLink="/contact">Contact</a>
+				<a routerLink="/connexion">Connexion</a>
+			</nav>
+		</div>
+	</div>
+ </div>
 </router-outlet>

@@ -1,1 +1,82 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url('public/fonts/Montserrat-Regular.eot?#iefix') format('embedded-opentype'),
+  url('public/fonts/Montserrat-Regular.woff') format('woff'), 
+  url('public/fonts/Montserrat-Regular.ttf')  format('truetype'), 
+  url('public/fonts/Montserrat-Regular.svg#Montserrat-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('public/fonts/Montserrat-Bold.eot?#iefix') format('embedded-opentype'),  
+  url('public/fonts/Montserrat-Bold.woff') format('woff'), 
+  url('public/fonts/Montserrat-Bold.ttf')  format('truetype'), 
+  url('public/fonts/Montserrat-Bold.svg#Montserrat-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* **************** GENERAL ***************** */
+body{
+	background-color:#F9F8F4;
+	font-family: 'Montserrat-Regular';
+}
+h1{
+	font-size:46px;
+	color:#1C293F;
+	text-transform: uppercase;
+}
+h2{
+	font-size:20px;
+}
+h4{
+	font-size:13px;
+}
+.norme-40{
+	margin:40px 0px;
+}
+.norme-25{
+	margin:25px 0px;
+}
+.padding-top-20{
+	padding-top:20px;
+}
+.logo {
+    width: 100%;
+    display: block;
+    max-width: 205px;
+}
+nav {
+    text-transform: uppercase;
+}
+nav a{
+	color:#1C293F;
+	padding-left: 20px;
+	font-size: 15px; 
+}
+/* **************** PRESENTATION ***************** */
+.bc-blue{
+	background-color: #1C293F;
+	padding:40px 30px;
+}
+.bc-blue p, .bc-blue h2{
+	color: white;
+}
+.bc-white{
+	background-color: white;
+	padding:40px 30px;
+	margin-top: 100px;
+}
+/* **************** CONTACT ***************** */
+iframe{
+	width: 100%;
+}
+.back-white{
+	background-color: white;
+}
+.form-control{
+	background-color: #1C293F;
+	color: white;
+	text-transform: uppercase;
+}

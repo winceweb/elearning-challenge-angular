@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
+
+declare var $: any;
+
 
 @Component({
   selector: 'app-presentation',
@@ -7,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PresentationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private el:ElementRef) { }
 
   ngOnInit() {
   }
