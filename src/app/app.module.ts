@@ -16,6 +16,8 @@ import { LessonService } from '../services/lesson.service';
 import { ProblematicService } from '../services/problematic.service';
 
 import { LessonDetailsComponent } from './lesson/lesson-details/lesson-details.component';
+import { ProblematicComponent } from './problematic/problematic.component';
+import { DestroyComponent } from './destroy/destroy.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddclientComponent } from './addclient/addclient.component';
@@ -34,6 +36,8 @@ const appRoutes: Routes = [
   {path: 'contact', component:ContactComponent},
   {path: 'lessons', component:LessonComponent, canActivate: [AuthManager]},
   {path: 'lesson/:id', component:LessonDetailsComponent, canActivate: [AuthManager]},
+  {path: 'problematic/:id', component:ProblematicComponent, canActivate: [AuthManager]},
+  {path: 'destroy', component:DestroyComponent, canActivate: [AuthManager]},
   {path: '**', component: PageNotFoundComponent}
 ];
 
@@ -46,6 +50,8 @@ const appRoutes: Routes = [
     ContactComponent,
     LessonComponent,
     LessonDetailsComponent,
+    ProblematicComponent,
+    DestroyComponent,
     LoginComponent,
     DashboardComponent,
     AddclientComponent

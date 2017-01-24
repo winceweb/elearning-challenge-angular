@@ -25,7 +25,10 @@ export class LessonComponent implements OnInit {
     content: ["", Validators.required],
     idCategory: ["", Validators.required],
     startDate: ["", Validators.required],
-    endDate: ["", Validators.required]
+    endDate: ["", Validators.required],
+    idUser: [""],
+    created_at: [""],
+    updated_at: [""]
   });
 
   constructor(
@@ -61,7 +64,7 @@ export class LessonComponent implements OnInit {
         this.lessons.push(this.addLessonForm.value);
       });
     // console.log(event);
-    // console.log(this.addLessonForm.value);
+    console.log(this.addLessonForm.value);
   }
 
   delete(lesson: Lesson): void {

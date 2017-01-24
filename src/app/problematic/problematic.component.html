@@ -1,3 +1,16 @@
-<p>
-  problematic works!
-</p>
+<h2>Problematique</h2>
+<div *ngIf="problematic">
+<p>Cours n°{{problematic.idLesson}}</p>
+<h5>{{problematic.entitled}}</h5>
+
+<img src="http://fakeimg.pl/300/" />
+Vidéo : {{problematic.movieUrl}}
+<p>Utilisateur n°{{problematic.idUser}}</p>
+
+<p>Posté le {{problematic.created_at}} <br> 
+{{problematic.caption}}</p>
+
+<h3>Réponse</h3>
+
+<h3>Laisser un commentaire</h3>
+</div>
