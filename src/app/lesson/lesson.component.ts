@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { Lesson } from '../../models/lesson';
 import { LessonService } from '../../services/lesson.service';
+import { UserService } from '../../services/user.service';
 import { AuthService } from '../auth.service';
 
 import { FormBuilder, Validators } from '@angular/forms';
@@ -33,6 +34,7 @@ export class LessonComponent implements OnInit {
 
   constructor(
     private lessonService: LessonService,
+    private userService: UserService,
     private router: Router,
     private authService: AuthService,
     public fb: FormBuilder) {
@@ -46,8 +48,6 @@ export class LessonComponent implements OnInit {
           console.log('Tu es un Teacher !!');
         }
       });
-
-
     }
 
   getLessons(): void {

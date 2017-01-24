@@ -1,0 +1,43 @@
+<h2>Les utilisateurs</h2>
+
+<!-- Modal "ajout de cours" -->
+<div>
+  <form [formGroup]="addUserForm" (ngSubmit)="addUser($event)">
+    <input formControlName="name" type="text" placeholder="Nom">
+    <input formControlName="email" type="text" placeholder="Email">
+    <input formControlName="isTeacher" type="text" placeholder="Professeur ou élève 0/1">
+    <input formControlName="isActive" type="text" placeholder="Actif 0/1">
+    <button type="submit">Ajouter</button>
+  </form>
+</div>
+<!-- Fin Modal -->
+
+
+<div class="users">
+
+  <div *ngFor="let user of users" [class.selected]="user === selectedUser">
+
+    <img (click)="gotoDetail(user)" src="http://fakeimg.pl/200x100/" />
+
+    <p>Utilisateur n°{{user.idUser}}</p>
+
+    <!-- Vote en étoile -->
+    <ul>
+      <li>x</li>
+      <li>x</li>
+      <li>x</li>
+      <li>x</li>
+      <li>x</li>
+    </ul>
+
+    <h5>{{user.name}}</h5>
+
+    <button class=""
+    (click)="gotoDetail(user)">Détails de l'utilisateur</button>
+
+    <button *ngIf="isTeacher" class="delete"
+    (click)="delete(user); $event.stopPropagation()">x</button>
+    <br /><br />
+  </div>
+
+</div>

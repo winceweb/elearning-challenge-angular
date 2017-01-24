@@ -3,24 +3,24 @@ import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 import { Router } from '@angular/router';
-import { Lesson }        from '../../../models/lesson';
+import { User }        from '../../../models/user';
 import { Problematic }        from '../../../models/problematic';
-import { LessonService } from '../../../services/lesson.service';
+import { UserService } from '../../../services/user.service';
 import { ProblematicService } from '../../../services/problematic.service';
 
 @Component({
-  selector: 'app-lesson-details',
-  templateUrl: 'lesson-details.component.html',
-  styleUrls: [ 'lesson-details.component.css' ]
+  selector: 'app-user-details',
+  templateUrl: 'user-details.component.html',
+  styleUrls: [ 'user-details.component.css' ]
 })
-export class LessonDetailsComponent implements OnInit {
-  lesson: Lesson;
+export class UserDetailsComponent implements OnInit {
+  user: User;
   problematic: Problematic;
   problematics: Problematic[];
-  selectedLesson: Lesson
+  selectedUser: User
 
   constructor(
-    private lessonService: LessonService,
+    private userService: UserService,
     private problematicService: ProblematicService,
     private route: ActivatedRoute,
     private router: Router,
@@ -29,16 +29,16 @@ export class LessonDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => this.lessonService.getLesson(+params['id']))
-      .subscribe(lesson => this.lesson = lesson);
+      .switchMap((params: Params) => this.userService.getUser(+params['id']))
+      .subscribe(user => this.user = user);
 
     this.route.params
-      .switchMap((params: Params) => this.problematicService.getProblematicsByLesson(+params['id']))
+      .switchMap((params: Params) => this.userService.getUserProblematics(+params['id']))
       .subscribe(problematics => this.problematics = problematics);
   }
 
   save(): void {
-    this.lessonService.update(this.lesson)
+    this.userService.update(this.user)
       .then(() => this.goBack());
   }
 

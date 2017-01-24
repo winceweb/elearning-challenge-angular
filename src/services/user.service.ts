@@ -3,66 +3,69 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
+import { User } from '../models/user';
 import { Problematic } from '../models/problematic';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
 @Injectable()
-export class ProblematicService {
+export class UserService {
 
-  private problematicsUrl = 'http://localhost:8000/api/v1/problematic';  // URL to web api
+  private usersUrl = 'http://localhost:8000/api/v1/users';  // URL to web api
   headers;
   constructor(private http: Http, private localStorageService: LocalStorageService) {
     this.headers = this.localStorageService.get('headers');
   }
 
-  getProblematics(): Promise<Problematic[]> {
-    return this.http.get(this.problematicsUrl, {headers: this.headers})
+  getUsers(): Promise<User[]> {
+    return this.http.get(this.usersUrl, {headers: this.headers})
                .toPromise()
-               .then(response => response.json().data as Problematic[])
+               .then(response => response.json().data as User[])
                .catch(this.handleError);
   }
 
-  getProblematicsByLesson(id: number): Promise<Problematic[]> {
-    const url = `${'http://localhost:8000/api/v1/lesson'}/${id}${'/problematic'}`;
-    return this.http.get(url, {headers: this.headers})
-           .toPromise()
-           .then(response => response.json().data as Problematic[])
-           .catch(this.handleError);
-  }
-
-  getProblematic(id: number): Promise<Problematic> {
-    const url = `${this.problematicsUrl}/${id}`;
+  getUser(id: number): Promise<User> {
+    const url = `${this.usersUrl}/${id}`;
     return this.http.get(url, {headers: this.headers})
       .toPromise()
-      .then(response => response.json().data as Problematic)
+      .then(response => response.json().data as User)
       .catch(this.handleError);
   }
 
   delete(id: number): Promise<void> {
-    const url = `${this.problematicsUrl}/${id}`;
+    const url = `${this.usersUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(() => null)
       .catch(this.handleError);
   }
 
-  create(problematic: Problematic): Promise<Problematic> {
+  create(user: User): Promise<User> {
     return this.http
-      .post(this.problematicsUrl, JSON.stringify(problematic), {headers: this.headers})
+      .post(this.usersUrl, JSON.stringify(user), {headers: this.headers})
       .toPromise()
       .then(res => res.json().data)
       .catch(this.handleError);
   }
 
-  update(problematic: Problematic): Promise<Problematic> {
-    const url = `${this.problematicsUrl}/${problematic.idProblematic}`;
+  update(user: User): Promise<User> {
+    const url = `${this.usersUrl}/${user.idUser}`;
     return this.http
-      .put(url, JSON.stringify(problematic), {headers: this.headers})
+      .put(url, JSON.stringify(user), {headers: this.headers})
       .toPromise()
-      .then(() => problematic)
+      .then(() => user)
       .catch(this.handleError);
   }
+
+  getUserProblematics(id: number): Promise<Problematic[]> {
+    const url = `${'http://localhost:8000/api/v1/liste/oeuvre'}/${id}`;
+    return this.http.get(url, {headers: this.headers})
+      .toPromise()
+      .then(response => response.json().data as Problematic[])
+      .catch(this.handleError);
+
+  }
+
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
