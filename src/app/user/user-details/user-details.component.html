@@ -1,0 +1,48 @@
+<div *ngIf="user">
+  <button (click)="goBack()">Retour</button>
+  <div>
+    <p>Actif : {{user.isActive}}</p>
+    <h1>{{user.isTeacher}} <span>{{user.name}}</span></h1>
+    <div>
+      <label>Date de création: </label>{{user.created_at}}
+      <br />
+      <label>Date de dernière modification: </label>{{user.updated_at}}
+    </div>
+    <img src="http://fakeimg.pl/200x100/" />
+  </div>
+
+  <div>
+    <h2>{{user.name}}</h2>
+    <h3>{{user.email}}</h3>
+    <!-- Vote en étoile -->
+    <ul>
+      <li>x</li>
+      <li>x</li>
+      <li>x</li>
+      <li>.</li>
+      <li>.</li>
+    </ul>
+
+    <hr />
+
+  </div>
+
+
+  <div *ngIf="problematics">
+    <p>Voir <span>les 3 problématiques postées</span></p>
+
+    <div *ngFor="let problematic of problematics" [class.selected]="problematic === selectedProblematic">
+
+      <img (click)="gotoDetail(problematic)" src="http://fakeimg.pl/300/" />
+
+      <h5>{{problematic.entitled}}</h5>
+
+      <p>Utilisateur n°{{problematic.idUser}}</p>
+
+      <button class=""
+      (click)="gotoDetail(problematic)">Voir la problématique</button>
+    </div>
+  </div>
+
+
+</div>

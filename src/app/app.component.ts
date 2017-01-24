@@ -1,5 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import './rxjs-operators';
+
+import { AuthService } from './auth.service';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 declare var $: any;
 

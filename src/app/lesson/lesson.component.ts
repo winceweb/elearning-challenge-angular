@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { Lesson } from '../../models/lesson';
 import { LessonService } from '../../services/lesson.service';
+import { UserService } from '../../services/user.service';
 import { AuthService } from '../auth.service';
 
 import { FormBuilder, Validators } from '@angular/forms';
@@ -25,11 +26,15 @@ export class LessonComponent implements OnInit {
     content: ["", Validators.required],
     idCategory: ["", Validators.required],
     startDate: ["", Validators.required],
-    endDate: ["", Validators.required]
+    endDate: ["", Validators.required],
+    idUser: [""],
+    created_at: [""],
+    updated_at: [""]
   });
 
   constructor(
     private lessonService: LessonService,
+    private userService: UserService,
     private router: Router,
     private authService: AuthService,
     public fb: FormBuilder) {
@@ -43,8 +48,6 @@ export class LessonComponent implements OnInit {
           console.log('Tu es un Teacher !!');
         }
       });
-
-
     }
 
   getLessons(): void {
@@ -61,7 +64,7 @@ export class LessonComponent implements OnInit {
         this.lessons.push(this.addLessonForm.value);
       });
     // console.log(event);
-    // console.log(this.addLessonForm.value);
+    console.log(this.addLessonForm.value);
   }
 
   delete(lesson: Lesson): void {

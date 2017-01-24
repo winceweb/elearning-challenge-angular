@@ -8,6 +8,9 @@
     <input formControlName="idCategory" type="text" placeholder="ID Catégorie">
     <input formControlName="startDate" type="date" placeholder="Date de début">
     <input formControlName="endDate" type="date" placeholder="Date de fin">
+    <input formControlName="idUser" type="hidden" placeholder="IDuser" value="1">
+    <input formControlName="created_at" type="hidden" placeholder="IDuser" value="2017-01-24 10:48:40">
+    <input formControlName="updated_at" type="hidden" placeholder="IDuser" value="2017-01-24 10:48:40">
     <button type="submit">Ajouter</button>
   </form>
 </div>
@@ -20,7 +23,7 @@
 
     <img (click)="gotoDetail(lesson)" src="http://fakeimg.pl/300/" />
 
-    <p>Utilisateur n°{{lesson.idUser}}</p>
+    <p *ngIf="lesson.user">Utilisateur {{lesson.user.name}}</p>
 
     <!-- Vote en étoile -->
     <ul>
