@@ -26,10 +26,7 @@ export class LessonComponent implements OnInit {
     content: ["", Validators.required],
     idCategory: ["", Validators.required],
     startDate: ["", Validators.required],
-    endDate: ["", Validators.required],
-    idUser: [""],
-    created_at: [""],
-    updated_at: [""]
+    endDate: ["", Validators.required]
   });
 
   constructor(
