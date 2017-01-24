@@ -1,6 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ElementRef} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth.service';
+
+declare var $: any;
+declare var bootstrap: any;
 
 
 @Component({
@@ -10,9 +13,10 @@ import {AuthService} from '../auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService, private el:ElementRef) { }
 
   ngOnInit() {
+
   }
 
 }
