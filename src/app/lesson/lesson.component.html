@@ -20,7 +20,7 @@
 
     <img (click)="gotoDetail(lesson)" src="http://fakeimg.pl/300/" />
 
-    <p>Utilisateur n°{{lesson.idUser}}</p>
+    <p *ngIf="lesson.user">Utilisateur {{lesson.user.name}}</p>
 
     <!-- Vote en étoile -->
     <ul>
