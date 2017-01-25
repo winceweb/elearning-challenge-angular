@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Lesson } from '../../models/lesson';
@@ -10,12 +10,15 @@ import { AuthService } from '../auth.service';
 
 import { FormBuilder, Validators } from '@angular/forms';
 
+declare var jQuery: any;
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-lesson',
   templateUrl: 'lesson.component.html',
   styleUrls: [ 'lesson.component.css' ]
 })
-export class LessonComponent implements OnInit {
+export class LessonComponent implements AfterViewInit {
   lessons: Lesson[];
   categories: Category[];
   selectedLesson: Lesson;
@@ -37,7 +40,7 @@ export class LessonComponent implements OnInit {
   constructor(
     private lessonService: LessonService,
     private userService: UserService,
-    private router: Router,
+    private router: Router, private auth: AuthService, private el:ElementRef,
     private authService: AuthService,
     public fb: FormBuilder) {
       this.isAuth = this.authService.isAuthenticated;
@@ -98,6 +101,20 @@ export class LessonComponent implements OnInit {
   gotoDetail(lesson: Lesson): void {
     this.router.navigate(['/lesson', lesson.idLesson]);
   }
+
+  ngAfterViewInit() {
+        
+    return jQuery(".starrr").starrr();
+
+   // jQuery("#stars").on('starrr:change', function(e, value){
+     // jQuery('#count').html(value);
+    // q});
+    
+   // jQuery('#stars-existing').on('starrr:change', function(e, value){
+    //  jQuery('#count-existing').html(value);
+   // });
+
+    }
 }
 
 

@@ -1,51 +1,152 @@
-<h2>Les cours</h2>
-
-<!-- Modal "ajout de cours" -->
-<div>
-  <form [formGroup]="addLessonForm" (ngSubmit)="addLesson($event)">
-    <input formControlName="subject" type="text" placeholder="intitulé du cours">
-    <input formControlName="content" type="text" placeholder="Contenu du cours">
-    <input formControlName="idCategory" type="text" placeholder="ID Catégorie">
-    <input formControlName="startDate" type="date" placeholder="Date de début">
-    <input formControlName="endDate" type="date" placeholder="Date de fin">
-    <input formControlName="idUser" type="hidden" placeholder="IDuser" value="1">
-    <input formControlName="created_at" type="hidden" placeholder="IDuser" value="2017-01-24 10:48:40">
-    <input formControlName="updated_at" type="hidden" placeholder="IDuser" value="2017-01-24 10:48:40">
-    <button type="submit">Ajouter</button>
-  </form>
-</div>
-<!-- Fin Modal -->
-
-
-<div class="lessons">
-
-  <div *ngFor="let category of categories" [class.selected]="category === selectedCategoy">
-    <p (click)="getLesByCat(category.idCategory)">{{category.title}} {{category.idCategory}}</p>
+<div class="container">
+  <!-- Modal "ajout de cours" -->
+  <div>
+    <form [formGroup]="addLessonForm" (ngSubmit)="addLesson($event)">
+      <input formControlName="subject" type="text" placeholder="intitulé du cours">
+      <input formControlName="content" type="text" placeholder="Contenu du cours">
+      <input formControlName="idCategory" type="text" placeholder="ID Catégorie">
+      <input formControlName="startDate" type="date" placeholder="Date de début">
+      <input formControlName="endDate" type="date" placeholder="Date de fin">
+      <input formControlName="idUser" type="hidden" placeholder="IDuser" value="1">
+      <input formControlName="created_at" type="hidden" placeholder="IDuser" value="2017-01-24 10:48:40">
+      <input formControlName="updated_at" type="hidden" placeholder="IDuser" value="2017-01-24 10:48:40">
+      <button type="submit">Ajouter</button>
+    </form>
   </div>
+  <!-- Fin Modal -->
 
-  <div *ngFor="let lesson of lessons" [class.selected]="lesson === selectedLesson">
+  <div class="lessons">
 
-    <img (click)="gotoDetail(lesson)" src="http://fakeimg.pl/300/" />
+    <div *ngFor="let category of categories" [class.selected]="category === selectedCategoy">
+      <p (click)="getLesByCat(category.idCategory)">{{category.title}} {{category.idCategory}}</p>
+    </div>
 
-    <p *ngIf="lesson.user">{{lesson.user.name}}</p>
+    <div *ngFor="let lesson of lessons" [class.selected]="lesson === selectedLesson">
 
-    <!-- Vote en étoile -->
-    <ul>
-      <li>x</li>
-      <li>x</li>
-      <li>x</li>
-      <li>x</li>
-      <li>x</li>
-    </ul>
+      <img (click)="gotoDetail(lesson)" src="http://fakeimg.pl/300/" />
 
-    <h5>{{lesson.subject}}</h5>
+      <p *ngIf="lesson.user">{{lesson.user.name}}</p>
 
-    <button class=""
-    (click)="gotoDetail(lesson)">Voir le cours</button>
+      <!-- Vote en étoile -->
+      <ul>
+        <li>x</li>
+        <li>x</li>
+        <li>x</li>
+        <li>x</li>
+        <li>x</li>
+      </ul>
 
-    <button *ngIf="isTeacher" class="delete"
-    (click)="delete(lesson); $event.stopPropagation()">x</button>
-    <br /><br />
-  </div>
+      <h5>{{lesson.subject}}</h5>
 
-</div>
+      <button class=""
+      (click)="gotoDetail(lesson)">Voir le cours</button>
+
+      <button *ngIf="isTeacher" class="delete"
+      (click)="delete(lesson); $event.stopPropagation()">x</button>
+      <br /><br />
+
+      <div class="row">
+        <div class="col-md-12">
+          <h1>FORMATIONS</h1>
+
+          <div class="tabbable-panel">
+            <div class="tabbable-line">
+              <ul class="nav nav-tabs ">
+                <li class="active">
+                  <a href="#tab_default_1" data-toggle="tab">
+                    Angular </a>
+                  </li>
+                  <li>
+                    <a href="#tab_default_2" data-toggle="tab">
+                      PHP </a>
+                    </li>
+                    <li>
+                      <a href="#tab_default_3" data-toggle="tab">
+                        Jquery </a>
+                      </li>
+                      <li>
+                        <a href="#tab_default_4" data-toggle="tab">
+                          Symfony </a>
+                        </li>
+                        <li>
+                          <a href="#tab_default_5" data-toggle="tab">
+                            Laravel </a>
+                          </li>
+                          <li>
+                            <a href="#tab_default_6" data-toggle="tab">
+                              MVC </a>
+                            </li>
+                          </ul>
+                          <div class="tab-content">
+                            <div class="tab-pane active" id="tab_default_1">
+                              <div class="row">
+                                <div class="col-xs-12 col-sm-3 mobs-2" data-wow-duration="1s" data-wow-delay=".5s">
+                                  <div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
+                                    <!-- PHONE -->
+                                    <a href="news_press_la">
+                                      <img class="img-responsive border-blue full" src="../public/images/cat-3.png" alt="">
+                                    </a>
+                                  </div>
+                                  <div class="back-white2 shadows">
+                                    <!-- TITLE -->
+                                    <div class="">
+                                      <h2>Crédit Agricole Payment Services is experimenting Pop & Work</h2>
+                                      <br>
+                                      <div class="col-xs-4">
+                                        <img class="img-responsive border-blue full" src="../public/images/homme-2-min.svg" alt="">
+                                      </div>
+                                      <div class="col-xs-8">
+                                        <p>Nicolas Sarbeau</p>
+                                        <div class="lead">
+                                          <div id="stars" class="starrr"></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <a class="pull-right btn btn-success" href="http://j.mp/metronictheme" target="_blank">Voir le cours</a>
+                                  </div>
+                                </div>
+
+                                <div class="lessons">
+
+                                  <div *ngFor="let lesson of lessons" [class.selected]="lesson === selectedLesson">
+
+                                    <div class="col-xs-12 col-sm-3 mobs-2" data-wow-duration="1s" data-wow-delay=".5s">
+
+                                      <img class="img-responsive" (click)="gotoDetail(lesson)" src="http://fakeimg.pl/300/" />
+
+                                      <h2>{{lesson.subject}}</h2>
+
+                                      <div class="col-xs-4">
+                                        <img class="img-responsive border-blue full" src="../public/images/homme-2-min.svg" alt="">
+                                      </div>
+
+                                      <div class="col-xs-8">
+                                        <p *ngIf="lesson.user">Utilisateur {{lesson.user.name}}</p>
+                                        <!-- Vote en étoile -->
+                                        <div class="lead">
+                                          <div id="stars" class="starrr"></div>
+                                        </div>
+                                      </div>
+
+                                      <button class=""
+                                      (click)="gotoDetail(lesson)">Voir le cours</button>
+
+                                      <button *ngIf="isTeacher" class="delete"
+                                      (click)="delete(lesson); $event.stopPropagation()">x</button>
+                                      <br /><br />
+                                    </div>
+
+                                  </div>
+
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
