@@ -1,8 +1,8 @@
-import { Component, OnInit, ElementRef} from '@angular/core';
+import { Component, OnInit, ElementRef, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../auth.service';
 
-declare var $: any;
+declare var jQuery: any;
 declare var bootstrap: any;
 
 
@@ -11,12 +11,22 @@ declare var bootstrap: any;
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements AfterViewInit {
 
   constructor(private router: Router, private auth: AuthService, private el:ElementRef) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+        
+    return jQuery(".starrr").starrr();
 
-  }
+	 // jQuery("#stars").on('starrr:change', function(e, value){
+     // jQuery('#count').html(value);
+    // q});
+    
+   // jQuery('#stars-existing').on('starrr:change', function(e, value){
+    //  jQuery('#count-existing').html(value);
+   // });
 
+    }
 }
+
