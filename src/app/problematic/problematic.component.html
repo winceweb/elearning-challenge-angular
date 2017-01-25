@@ -1,33 +1,46 @@
-<h2>Problematique</h2>
-<div *ngIf="problematic">
-<p>Cours n°{{problematic.idLesson}}</p>
-<h5>{{problematic.entitled}}</h5>
+<div class="container">
+	<div class="row norme-25">
+		<div class="col-xs-12">
+			<h1>Problematique</h1>
+		</div>
+	</div>
+	<div *ngIf="problematic">
+	<p>Cours n°{{problematic.idLesson}}</p>
+	
 
 
-<iframe class="e2e-iframe-trusted-src" width="300" height="300" [src]="newMovieUrl" frameborder="0"></iframe>
-<p>{{problematic.user.name}}</p>
+	<div class="col-xs-6">
+		<iframe class="e2e-iframe-trusted-src" width="300" height="300" [src]="newMovieUrl" frameborder="0"></iframe>
+	</div>
+	<div class="col-xs-6">
+		<h5>{{problematic.entitled}}</h5>
+		<p>{{problematic.user.name}}</p>
+		<p>Posté le {{problematic.created_at}} <br> 
+		{{problematic.caption}}</p>
+	</div>
+	<div class="clearfix"></div>
 
-<p>Posté le {{problematic.created_at}} <br> 
-{{problematic.caption}}</p>
+	<div class="commentary">
+		<div *ngFor="let commentary of commentaries" [class.selected]="commentary === selectedCommentary" class="fdblc">
+			<div class="avatar col-xs-1">
+				<img src="../public/images/homme-1.svg">
+			</div>
+			<div class="col-xs-11">
+				{{commentary.user.name}} : 
+				{{commentary.description}}
+			</div>
+		</div>
+	</div>
 
-<h3>Réponses</h3>
-
-<div class="commentary">
-
-  <div *ngFor="let commentary of commentaries" [class.selected]="commentary === selectedCommentary">
-Utilisateur {{commentary.idUser}} a répondu à {{commentary.created_at}}
-Commentaire : {{commentary.description}}
-  </div>
-
-</div>
-
-<h3>Laisser une réponse</h3>
-<div>
-  <form [formGroup]="addCommentaryForm" (ngSubmit)="addCommentary($event)">
-    <textarea formControlName="description" cols="30" rows="10">Votre commentaire</textarea>
-    <button type="submit">Ajouter</button>
-  </form>
-</div>
+	<h2>Laisser une réponse</h2>
+	<div>
+	  <form [formGroup]="addCommentaryForm" (ngSubmit)="addCommentary($event)">
+		<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+	    <textarea formControlName="description" cols="30" rows="10">Votre commentaire</textarea>
+	    <button type="submit" class="btn btn-success">Ajouter</button>
+	  </form>
+	</div>
 
 
+	</div>
 </div>
