@@ -1,16 +1,31 @@
 <h2>Problematique</h2>
 <div *ngIf="problematic">
-<p>Cours n°{{problematic.idLesson}}</p>
-<h5>{{problematic.entitled}}</h5>
+  <p>Cours n°{{problematic.idLesson}}</p>
+  <h5>{{problematic.entitled}}</h5>
 
-<img src="http://fakeimg.pl/300/" />
-Vidéo : {{problematic.movieUrl}}
-<p *ngIf="problematic.user">Utilisateur {{problematic.user.name}}</p>
+  <iframe class="e2e-iframe-trusted-src" width="300" height="300" [src]="newMovieUrl" frameborder="0"></iframe>
+  <p>{{problematic.user.name}}</p>
 
-<p>Posté le {{problematic.created_at}} <br>
-{{problematic.caption}}</p>
+  <p>Posté le {{problematic.created_at}} <br>
+    {{problematic.caption}}</p>
 
-<h3>Réponse</h3>
+    <h3>Réponses</h3>
 
-<h3>Laisser un commentaire</h3>
-</div>
+    <div class="commentary">
+
+      <div *ngFor="let commentary of commentaries" [class.selected]="commentary === selectedCommentary">
+        Utilisateur {{commentary.idUser}} a répondu à {{commentary.created_at}}
+        Commentaire : {{commentary.description}}
+      </div>
+
+    </div>
+
+    <h3>Laisser une réponse</h3>
+    <div>
+      <form [formGroup]="addCommentaryForm" (ngSubmit)="addCommentary($event)">
+        <textarea formControlName="description" cols="30" rows="10">Votre commentaire</textarea>
+        <button type="submit">Ajouter</button>
+      </form>
+    </div>
+
+  </div>

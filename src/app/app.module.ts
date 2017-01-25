@@ -18,6 +18,7 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
 // Services
 import { LessonService } from '../services/lesson.service';
 import { ProblematicService } from '../services/problematic.service';
+import { CommentaryService } from '../services/commentary.service';
 import { UserService } from '../services/user.service';
 import { AuthService } from './auth.service';
 // Manager
@@ -78,6 +79,7 @@ const appRoutes: Routes = [
   providers: [
     LessonService,
     ProblematicService,
+    CommentaryService,
     AuthService,
     AuthManager,
     UserService

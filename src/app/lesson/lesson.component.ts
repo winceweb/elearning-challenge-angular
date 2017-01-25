@@ -34,10 +34,7 @@ export class LessonComponent implements AfterViewInit {
     content: ["", Validators.required],
     idCategory: ["", Validators.required],
     startDate: ["", Validators.required],
-    endDate: ["", Validators.required],
-    idUser: [""],
-    created_at: [""],
-    updated_at: [""]
+    endDate: ["", Validators.required]
   });
 
   constructor(
