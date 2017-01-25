@@ -45,7 +45,6 @@ export class LessonDetailsComponent implements OnInit {
         }
       });
 
-
   }
 
   save(): void {

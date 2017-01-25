@@ -24,10 +24,12 @@ export class AuthService {
     if(this.localStorageService.get('token') != ""){
       this.headers = new Headers();
       this.headers.append('Accept', 'application/json');
-      this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
+      this.headers.append('Content-Type', 'application/json');
       this.headers.append('Authorization', 'Bearer '+ this.localStorageService.get('token'));
 
       this.localStorageService.set('headers', this.headers);
+
+      console.log(this.localStorageService.get('headers'))
 
     }
   }

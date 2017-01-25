@@ -3,13 +3,14 @@
   <div>
     <form [formGroup]="addLessonForm" (ngSubmit)="addLesson($event)">
       <input formControlName="subject" type="text" placeholder="intitulé du cours">
-      <input formControlName="content" type="text" placeholder="Contenu du cours">
-      <input formControlName="idCategory" type="text" placeholder="ID Catégorie">
+      <textarea formControlName="content" placeholder="Contenu du cours"></textarea>
+      <select formControlName="idCategory">
+        <option selected="true" value="">Sélectionnez un catégorie</option>
+        <option value="{{category.idCategory}}" *ngFor="let category of categories">{{category.title}}</option>
+      </select>
       <input formControlName="startDate" type="date" placeholder="Date de début">
       <input formControlName="endDate" type="date" placeholder="Date de fin">
       <input formControlName="idUser" type="hidden" placeholder="IDuser" value="1">
-      <input formControlName="created_at" type="hidden" placeholder="IDuser" value="2017-01-24 10:48:40">
-      <input formControlName="updated_at" type="hidden" placeholder="IDuser" value="2017-01-24 10:48:40">
       <button type="submit">Ajouter</button>
     </form>
   </div>
@@ -35,7 +36,7 @@
                     <div class="col-xs-12 col-sm-3 mobs-2" data-wow-duration="1s" data-wow-delay=".5s">
                       <div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
                         <!-- PHONE -->
-                        <a (click)="gotoDetail(lesson)" href="news_press_la">
+                        <a (click)="gotoDetail(lesson)">
                           <img class="img-responsive border-blue full" src="../public/images/cat-3.png" alt="">
                         </a>
                       </div>
@@ -54,10 +55,11 @@
                             </div>
                           </div>
                         </div>
-                        <a (click)="gotoDetail(lesson)" class="pull-right btn btn-success" href="http://j.mp/metronictheme" target="_blank">Voir le cours</a>
 
-                        <button *ngIf="isTeacher" class="delete pull-right"
+                        <button *ngIf="isTeacher" class="delete pull-right btn btn-danger"
                         (click)="delete(lesson); $event.stopPropagation()">x</button>
+
+                        <button (click)="gotoDetail(lesson)" class="pull-right btn btn-success">Voir le cours</button>
 
                       </div>
                     </div>
