@@ -2,6 +2,8 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import {Observable} from 'rxjs/Observable';
+
 import { Lesson } from '../../models/lesson';
 import { Category } from '../../models/category';
 import { LessonService } from '../../services/lesson.service';
@@ -25,16 +27,14 @@ export class LessonComponent implements AfterViewInit {
   isAuth: boolean = false;
   isTeacher: boolean = false;
   userName;
+  private data: Observable<Array<number>>;
 
   public addLessonForm = this.fb.group({
     subject: ["", Validators.required],
     content: ["", Validators.required],
     idCategory: ["", Validators.required],
     startDate: ["", Validators.required],
-    endDate: ["", Validators.required],
-    idUser: [""],
-    created_at: [""],
-    updated_at: [""]
+    endDate: ["", Validators.required]
   });
 
   constructor(
@@ -55,76 +55,97 @@ export class LessonComponent implements AfterViewInit {
       });
     }
 
-  getLessons(): void {
-    this.lessonService
-        .getLessons()
-        .then(lessons => {
-          this.lessons = lessons;
-        });
-  }
-
-  getCategories(): void {
-    this.lessonService
-        .getCategories()
-        .then(categories => this.categories = categories);
-  }
-
-  getLesByCat(idCategory: number): void{
-    this.lessonService
-        .getLesByCat(idCategory)
-        .then(lessons => {
-          
-          this.lessons = lessons;
-
+    getLessons(): void {
+      this.lessonService
+      .getLessons()
+      .then(lessons => {
+        this.lessons = lessons;
+        this.data = new Observable(observer => {
+            setTimeout(() => {
+                jQuery(".starrr").starrr();
+                observer.complete();
+            }, 200);
         });
 
-  }
+        let subscription = this.data.subscribe(
+            () => jQuery(".starrr").starrr()
+        );
 
-  addLesson(event) {
-    if (!this.addLessonForm.value) { return; }
-    this.lessonService.create(this.addLessonForm.value)
+      });
+    }
+
+    getCategories(): void {
+      this.lessonService
+      .getCategories()
+      .then(categories => this.categories = categories);
+    }
+
+    getLesByCat(idCategory: number): void{
+      this.lessonService
+      .getLesByCat(idCategory)
+      .then(lessons => {
+          this.lessons = lessons;
+          this.data = new Observable(observer => {
+              setTimeout(() => {
+                  jQuery(".starrr").starrr()
+                  observer.complete();
+              }, 200);
+          });
+
+          let subscription = this.data.subscribe(
+              () => jQuery(".starrr").starrr()
+          );
+      });
+    }
+
+    addLesson(event) {
+      if (!this.addLessonForm.value) { return; }
+      this.lessonService.create(this.addLessonForm.value)
       .then(lesson => {
         this.lessons.push(this.addLessonForm.value);
       });
-    // console.log(event);
-    console.log(this.addLessonForm.value);
-  }
+      // console.log(event);
+      console.log(this.addLessonForm.value);
+    }
 
-  delete(lesson: Lesson): void {
-    this.lessonService
-        .delete(lesson.idLesson)
-        .then(() => {
-          this.lessons = this.lessons.filter(h => h !== lesson);
-          if (this.selectedLesson === lesson) { this.selectedLesson = null; }
-        });
-  }
+    delete(lesson: Lesson): void {
+      this.lessonService
+      .delete(lesson.idLesson)
+      .then(() => {
+        this.lessons = this.lessons.filter(h => h !== lesson);
+        if (this.selectedLesson === lesson) { this.selectedLesson = null; }
+      });
+    }
 
-  ngOnInit(): void {
-    this.getLessons();
-    this.getCategories();
-  }
+    ngOnInit(): void {
+      this.getLessons();
+      this.getCategories();
+    }
 
 
-  gotoDetail(lesson: Lesson): void {
-    this.router.navigate(['/lesson', lesson.idLesson]);
-  }
+    gotoDetail(lesson: Lesson): void {
+      this.router.navigate(['/lesson', lesson.idLesson]);
+    }
 
-  ngAfterViewInit() {
-    jQuery(".starrr").starrr();
-    jQuery("#stars").on('starrr:change', function(e, value){
-     jQuery('#count').html(value);
-    });
+    ngAfterViewInit() {
 
-     jQuery('#stars-existing').on('starrr:change', function(e, value){
-       jQuery('#count-existing').html(value);
-     });
+      jQuery(".starrr").starrr();
+
+      jQuery("#stars").on('starrr:change', function(e, value){
+        jQuery('#count').html(value);
+      });
+
+      jQuery('#stars-existing').on('starrr:change', function(e, value){
+        jQuery('#count-existing').html(value);
+      });
+
 
     }
-}
+  }
 
 
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
+  /*
+  Copyright 2016 Google Inc. All Rights Reserved.
+  Use of this source code is governed by an MIT-style license that
+  can be found in the LICENSE file at http://angular.io/license
+  */
