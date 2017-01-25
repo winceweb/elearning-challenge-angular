@@ -22,10 +22,11 @@
     </ul>
 
     <hr />
-
-    <label>Créateur du cours: </label>Utilisateur n°{{lesson.idUser}}
+    <div *ngIf="lesson.user">
+      <label>Créateur du cours: </label> {{lesson.user.name}}
+    </div>
     <br />
-    <span>3 problématiques</span>
+    <span>{{countLessons}}</span>
 
     <div>
       <p>{{lesson.content}}</p>
@@ -62,15 +63,13 @@
 
 
   <div *ngIf="problematics">
-    <p>Voir <span>les 3 problématiques trouvées</span></p>
+    <p>{{countLessons}}</p>
 
     <div *ngFor="let problematic of problematics" [class.selected]="problematic === selectedProblematic">
 
       <img (click)="gotoDetail(problematic)" src="http://fakeimg.pl/300/" />
 
       <h5>{{problematic.entitled}}</h5>
-
-      <p>Utilisateur n°{{problematic.idUser}}</p>
 
       <button class=""
       (click)="gotoDetail(problematic)">Voir la problématique</button>

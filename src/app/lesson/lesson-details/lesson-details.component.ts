@@ -15,9 +15,11 @@ import { ProblematicService } from '../../../services/problematic.service';
 })
 export class LessonDetailsComponent implements OnInit {
   lesson: Lesson;
+  lessons: Lesson[];
   problematic: Problematic;
   problematics: Problematic[];
-  selectedLesson: Lesson
+  selectedLesson: Lesson;
+  countLessons: string;
 
   constructor(
     private lessonService: LessonService,
@@ -34,7 +36,16 @@ export class LessonDetailsComponent implements OnInit {
 
     this.route.params
       .switchMap((params: Params) => this.problematicService.getProblematicsByLesson(+params['id']))
-      .subscribe(problematics => this.problematics = problematics);
+      .subscribe(problematics => {
+        this.problematics = problematics;
+        if(problematics.length > 1){
+          this.countLessons = problematics.length+" problématiques en relation avec ce cours";
+        }else{
+          this.countLessons = "Une problématique en relation avec ce cours";
+        }
+      });
+
+
   }
 
   save(): void {

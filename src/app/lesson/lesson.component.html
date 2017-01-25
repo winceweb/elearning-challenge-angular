@@ -19,11 +19,15 @@
 
 <div class="lessons">
 
+  <div *ngFor="let category of categories" [class.selected]="category === selectedCategoy">
+    <p (click)="getLesByCat(category.idCategory)">{{category.title}} {{category.idCategory}}</p>
+  </div>
+
   <div *ngFor="let lesson of lessons" [class.selected]="lesson === selectedLesson">
 
     <img (click)="gotoDetail(lesson)" src="http://fakeimg.pl/300/" />
 
-    <p *ngIf="lesson.user">Utilisateur {{lesson.user.name}}</p>
+    <p *ngIf="lesson.user">{{lesson.user.name}}</p>
 
     <!-- Vote en étoile -->
     <ul>

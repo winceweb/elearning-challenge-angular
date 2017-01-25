@@ -18,6 +18,7 @@ export class UserDetailsComponent implements OnInit {
   problematic: Problematic;
   problematics: Problematic[];
   selectedUser: User
+  countLessons: string;
 
   constructor(
     private userService: UserService,
@@ -34,7 +35,14 @@ export class UserDetailsComponent implements OnInit {
 
     this.route.params
       .switchMap((params: Params) => this.userService.getUserProblematics(+params['id']))
-      .subscribe(problematics => this.problematics = problematics);
+      .subscribe(problematics => {
+        this.problematics = problematics
+        if(problematics.length > 1){
+          this.countLessons = problematics.length+" problématiques en relation avec ce cours";
+        }else{
+          this.countLessons = "Une problématique en relation avec ce cours";
+        }
+      });
   }
 
   save(): void {

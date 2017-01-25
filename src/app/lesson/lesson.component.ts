@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Lesson } from '../../models/lesson';
+import { Category } from '../../models/category';
 import { LessonService } from '../../services/lesson.service';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../auth.service';
@@ -16,6 +17,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class LessonComponent implements OnInit {
   lessons: Lesson[];
+  categories: Category[];
   selectedLesson: Lesson;
   isAuth: boolean = false;
   isTeacher: boolean = false;
@@ -54,7 +56,18 @@ export class LessonComponent implements OnInit {
     this.lessonService
         .getLessons()
         .then(lessons => this.lessons = lessons);
+  }
 
+  getCategories(): void {
+    this.lessonService
+        .getCategories()
+        .then(categories => this.categories = categories);
+  }
+
+  getLesByCat(idCategory: number): void{
+    this.lessonService
+        .getLesByCat(idCategory)
+        .then(lessons => this.lessons = lessons);
   }
 
   addLesson(event) {
@@ -78,6 +91,7 @@ export class LessonComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLessons();
+    this.getCategories();
   }
 
 
