@@ -58,7 +58,9 @@ export class LessonComponent implements AfterViewInit {
   getLessons(): void {
     this.lessonService
         .getLessons()
-        .then(lessons => this.lessons = lessons);
+        .then(lessons => {
+          this.lessons = lessons;
+        });
   }
 
   getCategories(): void {
@@ -70,7 +72,12 @@ export class LessonComponent implements AfterViewInit {
   getLesByCat(idCategory: number): void{
     this.lessonService
         .getLesByCat(idCategory)
-        .then(lessons => this.lessons = lessons);
+        .then(lessons => {
+          
+          this.lessons = lessons;
+
+        });
+
   }
 
   addLesson(event) {
@@ -103,16 +110,14 @@ export class LessonComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-        
-    return jQuery(".starrr").starrr();
+    jQuery(".starrr").starrr();
+    jQuery("#stars").on('starrr:change', function(e, value){
+     jQuery('#count').html(value);
+    });
 
-   // jQuery("#stars").on('starrr:change', function(e, value){
-     // jQuery('#count').html(value);
-    // q});
-    
-   // jQuery('#stars-existing').on('starrr:change', function(e, value){
-    //  jQuery('#count-existing').html(value);
-   // });
+     jQuery('#stars-existing').on('starrr:change', function(e, value){
+       jQuery('#count-existing').html(value);
+     });
 
     }
 }
