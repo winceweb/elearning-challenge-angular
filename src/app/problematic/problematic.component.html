@@ -21,8 +21,13 @@ Commentaire : {{commentary.description}}
 
 </div>
 
-<h3>Laisser un commentaire</h3>
-
+<h3>Laisser une réponse</h3>
+<div>
+  <form [formGroup]="addCommentaryForm" (ngSubmit)="addCommentary($event)">
+    <textarea formControlName="description" cols="30" rows="10">Votre commentaire</textarea>
+    <button type="submit">Ajouter</button>
+  </form>
+</div>
 
 
 </div>

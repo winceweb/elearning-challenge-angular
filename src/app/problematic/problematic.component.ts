@@ -28,6 +28,7 @@ export class ProblematicComponent implements OnInit {
 	userName;
   newMovieUrl;
   urlEncoding;
+  urlProblematic;
 
   constructor(
     private problematicService: ProblematicService,
@@ -35,7 +36,8 @@ export class ProblematicComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private sanitizer: DomSanitizer)
+    private sanitizer: DomSanitizer,
+    public fb: FormBuilder)
     {
        this.route.params
       .switchMap((params: Params) => this.problematicService.getProblematic(+params['id']))
@@ -43,16 +45,27 @@ export class ProblematicComponent implements OnInit {
         this.problematic = problematic
         this.urlEncoding = "https://www.youtube.com/embed/"+this.problematic.movieUrl;
         this.newMovieUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(this.urlEncoding);
-        console.log(this.problematic);
+
       });
 
        this.route.params
       .switchMap((params: Params) => this.commentaryService.getCommentary(+params['id']))
       .subscribe(commentaries => this.commentaries = commentaries);
-
-
-      // console.log(this.newMovieUrl);
     }
+
+  public addCommentaryForm = this.fb.group({
+    description: ["", Validators.required]
+  });
+
+  addCommentary(event) {
+    this.urlProblematic = this.router.url;
+    if (!this.addCommentaryForm.value) { return; }
+    this.commentaryService.create(this.addCommentaryForm.value, this.urlProblematic)
+      .then(commentaries => {
+        this.commentaries.push(this.addCommentaryForm.value);
+      });
+    console.log(this.addCommentaryForm.value);
+  }
 
 
 

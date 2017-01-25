@@ -32,15 +32,16 @@ export class CommentaryService {
       .catch(this.handleError);
   }
 
-  create(commentary: Commentary): Promise<Commentary> {
+  create(commentary: Commentary, urlProblematic: string): Promise<Commentary> {
+    const url = `http://localhost:8000/api/v1${urlProblematic}/commentary`;
     return this.http
-      .post(this.commentaryUrl, JSON.stringify(commentary), {headers: this.headers})
+      .post(url, JSON.stringify(commentary), {headers: this.headers})
       .toPromise()
       .then(res => res.json().data)
       .catch(this.handleError);
   }
 
-  update(commentary: Commentary): Promise<Commentary> {
+  update(commentary: Commentary, id: number): Promise<Commentary> {
     const url = `${this.commentaryUrl}/${commentary.idCommentary}`;
     return this.http
       .put(url, JSON.stringify(commentary), {headers: this.headers})
