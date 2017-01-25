@@ -1,44 +1,75 @@
-<h2>Les cours</h2>
-
-<!-- Modal "ajout de cours" -->
-<div>
-  <form [formGroup]="addLessonForm" (ngSubmit)="addLesson($event)">
-    <input formControlName="subject" type="text" placeholder="intitulé du cours">
-    <input formControlName="content" type="text" placeholder="Contenu du cours">
-    <input formControlName="idCategory" type="text" placeholder="ID Catégorie">
-    <input formControlName="startDate" type="date" placeholder="Date de début">
-    <input formControlName="endDate" type="date" placeholder="Date de fin">
-    <button type="submit">Ajouter</button>
-  </form>
-</div>
-<!-- Fin Modal -->
-
-
-<div class="lessons">
-
-  <div *ngFor="let lesson of lessons" [class.selected]="lesson === selectedLesson">
-
-    <img (click)="gotoDetail(lesson)" src="http://fakeimg.pl/300/" />
-
-    <p *ngIf="lesson.user">Utilisateur {{lesson.user.name}}</p>
-
-    <!-- Vote en étoile -->
-    <ul>
-      <li>x</li>
-      <li>x</li>
-      <li>x</li>
-      <li>x</li>
-      <li>x</li>
-    </ul>
-
-    <h5>{{lesson.subject}}</h5>
-
-    <button class=""
-    (click)="gotoDetail(lesson)">Voir le cours</button>
-
-    <button *ngIf="isTeacher" class="delete"
-    (click)="delete(lesson); $event.stopPropagation()">x</button>
-    <br /><br />
+<div class="container">
+  <!-- Modal "ajout de cours" -->
+  <div>
+    <form [formGroup]="addLessonForm" (ngSubmit)="addLesson($event)">
+      <input formControlName="subject" type="text" placeholder="intitulé du cours">
+      <textarea formControlName="content" placeholder="Contenu du cours"></textarea>
+      <select formControlName="idCategory">
+        <option selected="true" value="">Sélectionnez un catégorie</option>
+        <option value="{{category.idCategory}}" *ngFor="let category of categories">{{category.title}}</option>
+      </select>
+      <input formControlName="startDate" type="date" placeholder="Date de début">
+      <input formControlName="endDate" type="date" placeholder="Date de fin">
+      <button type="submit">Ajouter</button>
+    </form>
   </div>
+  <!-- Fin Modal -->
 
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>FORMATIONS</h1>
+      <div class="tabbable-panel">
+        <div class="tabbable-line">
+          <ul class="nav nav-tabs ">
+            <li *ngFor="let category of categories">
+              <a (click)="getLesByCat(category.idCategory)" href="#tab_default_1" data-toggle="tab">
+                {{category.title}} {{category.idCategory}}
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab_default_1">
+                <div class="row">
+                  <div *ngFor="let lesson of lessons">
+
+                    <div class="col-xs-12 col-sm-3 mobs-2" data-wow-duration="1s" data-wow-delay=".5s">
+                      <div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
+                        <!-- PHONE -->
+                        <a (click)="gotoDetail(lesson)">
+                          <img class="img-responsive border-blue full" src="../public/images/cat-3.png" alt="">
+                        </a>
+                      </div>
+                      <div class="back-white2 shadows">
+                        <!-- TITLE -->
+                        <div class="">
+                          <h2>{{lesson.subject}}</h2>
+                          <br>
+                          <div class="col-xs-4">
+                            <img class="img-responsive border-blue full" src="../public/images/homme-2-min.svg" alt="">
+                          </div>
+                          <div class="col-xs-8">
+                            <p *ngIf="lesson.user">{{lesson.user.name}}</p>
+                            <div class="lead">
+                              <div id="stars" class="starrr"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <button *ngIf="isTeacher" class="delete pull-right btn btn-danger"
+                        (click)="delete(lesson); $event.stopPropagation()">x</button>
+
+                        <button (click)="gotoDetail(lesson)" class="pull-right btn btn-success">Voir le cours</button>
+
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

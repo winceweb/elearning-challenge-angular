@@ -4,6 +4,7 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Lesson } from '../models/lesson';
+import { Category } from '../models/category';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
@@ -54,6 +55,20 @@ export class LessonService {
       .toPromise()
       .then(() => lesson)
       .catch(this.handleError);
+  }
+
+  getCategories(): Promise<Category[]> {
+    return this.http.get('http://localhost:8000/api/v1/category', {headers: this.headers})
+               .toPromise()
+               .then(response => response.json() as Category[])
+               .catch(this.handleError);
+  }
+
+  getLesByCat(idCategory: number): Promise<Lesson[]> {
+    return this.http.get(`${'http://localhost:8000/api/v1/lesByCat'}/${idCategory}`, {headers: this.headers})
+               .toPromise()
+               .then(response => response.json().data as Lesson[])
+               .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

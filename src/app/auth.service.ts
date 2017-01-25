@@ -29,6 +29,8 @@ export class AuthService {
 
       this.localStorageService.set('headers', this.headers);
 
+      console.log(this.localStorageService.get('headers'))
+
     }
   }
 

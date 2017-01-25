@@ -29,15 +29,13 @@
 
 
   <div *ngIf="problematics">
-    <p>Voir <span>les 3 problématiques postées</span></p>
+    <p>{{countLessons}}</p>
 
     <div *ngFor="let problematic of problematics" [class.selected]="problematic === selectedProblematic">
 
       <img (click)="gotoDetail(problematic)" src="http://fakeimg.pl/300/" />
 
       <h5>{{problematic.entitled}}</h5>
-
-      <p>Utilisateur n°{{problematic.idUser}}</p>
 
       <button class=""
       (click)="gotoDetail(problematic)">Voir la problématique</button>
