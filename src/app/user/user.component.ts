@@ -2,11 +2,16 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import {Observable} from 'rxjs/Observable';
+
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../auth.service';
 
 import { FormBuilder, Validators } from '@angular/forms';
+
+declare var jQuery: any;
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-user',
@@ -19,6 +24,7 @@ export class UserComponent implements OnInit {
   isAuth: boolean = false;
   isTeacher: boolean = false;
   userName;
+  private data: Observable<Array<number>>;
 
   public addUserForm = this.fb.group({
     name: ["", Validators.required],
@@ -48,7 +54,19 @@ export class UserComponent implements OnInit {
   getUsers(): void {
     this.userService
         .getUsers()
-        .then(users => this.users = users);
+        .then(users => {
+          this.users = users;
+          this.data = new Observable(observer => {
+              setTimeout(() => {
+                  jQuery(".starrr").starrr();
+                  observer.complete();
+              }, 200);
+          });
+
+          let subscription = this.data.subscribe(
+              () => jQuery(".starrr").starrr()
+          );
+        });
 
   }
 
