@@ -6,4 +6,5 @@ export class User {
   isActive: number;
   created_at: any;
   updated_at: any;
+  rateUser: number;
 }

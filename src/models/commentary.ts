@@ -4,4 +4,6 @@ export class Commentary {
   idProblematic: number;
   idUser: number;
   created_at: any;
+  username: string;
+  class: string;
 }
