@@ -1,6 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
 import {Observable} from 'rxjs/Observable';
 
@@ -38,7 +39,9 @@ export class LessonComponent implements AfterViewInit {
     content: ["", Validators.required],
     idCategory: ["", Validators.required],
     startDate: ["", Validators.required],
-    endDate: ["", Validators.required]
+    endDate: ["", Validators.required],
+    urlLesson: ["", Validators.required],
+    image: ["", Validators.required]
   });
 
   constructor(
@@ -46,7 +49,7 @@ export class LessonComponent implements AfterViewInit {
     private userService: UserService,
     private router: Router, private auth: AuthService, private el:ElementRef,
     private authService: AuthService,
-
+    private sanitizer: DomSanitizer,
     public fb: FormBuilder) {
       this.isAuth = this.authService.isAuthenticated;
       this.isTeacher = this.authService.isTeacher;
@@ -73,6 +76,8 @@ export class LessonComponent implements AfterViewInit {
                 .getRatingLesson(this.lessons[i]['idLesson'])
                 .then(noteLesson => {
                   this.noteLesson = noteLesson;
+                  this.lessons[i]['image'] = this.sanitizer.bypassSecurityTrustResourceUrl(this.lessons[i]['image']);
+                  console.log(this.lessons[i]['image']);
                   // console.log("idLesson --> " + this.lessons[i]['idLesson'] + " iteration --> "+ i +" Note --> " + this.noteLesson);
                   this.lessons[i]['noteLesson'] = this.noteLesson;
                   observer.next(this.lessons);

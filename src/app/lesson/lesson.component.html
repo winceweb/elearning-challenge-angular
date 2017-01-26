@@ -14,10 +14,16 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-xs-12 margin-20">
+              Image du cours :<input class="form-control" formControlName="image" type="url" placeholder="Url complète de l'image">
+            </div>
+            <div class="col-xs-12 margin-20">
               Nom du cours :<input class="form-control" formControlName="subject" type="text" placeholder="intitulé du cours">
             </div>
             <div class="col-xs-12 margin-20">
               Description : <textarea class="form-control" rows="4" formControlName="content" placeholder="Contenu du cours"></textarea>
+            </div>
+            <div class="col-xs-12 margin-20">
+              URL du cours : <input class="form-control" formControlName="urlLesson" type="url" placeholder="Url complète du cours">
             </div>
             <div class="col-xs-12 margin-20">
               <select class="form-control" formControlName="idCategory">
@@ -35,7 +41,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit " class="btn pull-right btn btn-success">Save changes</button>
+          <button type="submit" class="btn pull-right btn btn-success">Save changes</button>
         </div>
       </div>
     </div>
@@ -73,7 +79,7 @@
                       <div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
                         <!-- PHONE -->
                         <a (click)="gotoDetail(lesson)">
-                          <img class="img-responsive border-blue full" src="{{lesson.image}}" alt="">
+                          <img class="img-responsive border-blue full" [src]="lesson.image" alt="">
                         </a>
                       </div>
                       <div class="back-white2 shadows">
