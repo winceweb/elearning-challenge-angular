@@ -5,4 +5,5 @@ export class Commentary {
   idUser: number;
   created_at: any;
   username: string;
+  class: string;
 }

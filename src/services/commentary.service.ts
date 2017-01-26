@@ -24,8 +24,9 @@ export class CommentaryService {
       .catch(this.handleError);
   }
 
-  delete(id: number): Promise<void> {
-    const url = `${this.commentaryUrl}/${id}`;
+  delete(id: number, urlProblematic: string): Promise<void> {
+    const url = `http://localhost:8000/api/v1${urlProblematic}/commentary/${id}`;
+    console.log(url);
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(() => null)

@@ -28,7 +28,9 @@ export class ProblematicComponent implements OnInit {
   problematic: Problematic;
   selectedProblematic: Problematic;
   lesson: Lesson;
+  selectedCommentary: Commentary;
   commentaries: Commentary[];
+  commentary: Commentary;
   user: User;
 	isAuth: boolean = false;
 	isTeacher: boolean = false;
@@ -53,6 +55,17 @@ export class ProblematicComponent implements OnInit {
     private sanitizer: DomSanitizer,
     public fb: FormBuilder)
     {
+
+        this.isTeacher = this.authService.isTeacher;
+        let userRole = this.authService.infoUser();
+        userRole.then((res) => {
+          if (res.isTeacher == 1){
+            this.isTeacher = true;
+            console.log('Tu es un Teacher !!');
+            console.log(this.isTeacher);
+          }
+        });
+       
        this.route.params
       .switchMap((params: Params) => this.problematicService.getProblematic(+params['id']))
       .subscribe(problematic => {
@@ -85,6 +98,11 @@ export class ProblematicComponent implements OnInit {
               .then(user =>{
                 this.user = user;
                 this.commentaries[i]['username'] = this.user.name;
+                if(this.user.isTeacher == 1) {
+                  this.commentaries[i]['class'] = 'teacherCommentary';
+                }else{
+                  this.commentaries[i]['class'] = '';
+                }
               })
           }
           setTimeout(() => {
@@ -109,10 +127,24 @@ export class ProblematicComponent implements OnInit {
     if (!this.addCommentaryForm.value) { return; }
     this.commentaryService.create(this.addCommentaryForm.value, this.urlProblematic)
       .then(commentaries => {
+        this.addCommentaryForm.value['created_at'] =  new Date();
+        this.addCommentaryForm.value['username'] = "Roslyn Kuhic";
+        if(this.isTeacher) {
+         this.addCommentaryForm.value['class'] = "teacherCommentary";
+        }
         this.commentaries.push(this.addCommentaryForm.value);
       });
-    console.log(this.addCommentaryForm.value);
   }
+
+  deleteCommentary(commentary: Commentary,idCommentary: number): void {
+      this.urlProblematic = this.router.url;
+      this.commentaryService
+      .delete(idCommentary, this.urlProblematic)
+      .then(() => {
+        this.commentaries = this.commentaries.filter(h => h !== commentary);
+        if (this.selectedCommentary === commentary) { this.selectedCommentary = null; }
+      });
+    }
 
 
   ngOnInit(): void {

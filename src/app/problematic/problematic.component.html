@@ -18,7 +18,7 @@
 
 
 	<div class="commentary">
-		<div *ngFor="let commentary of commentaries" [class.selected]="commentary === selectedCommentary" class="fdblc clearfix">
+		<div *ngFor="let commentary of commentaries" [class.selected]="commentary === selectedCommentary" class="fdblc clearfix singleCommentary {{commentary.class}}">
 			<div class="avatar col-xs-1">
 				<img src="../public/images/homme-1.svg">
 			</div>
@@ -26,6 +26,9 @@
 				<span *ngIf="commentary.username">{{commentary.username}}</span> <span class="details">- {{commentary.created_at | date: 'dd/MM/yyyy'}}</span>
 				<p>{{commentary.description}}</p>
  			</div>
+
+ 			<button *ngIf="isTeacher" class="delete fl-topri pull-right btn btn-danger"
+ 			(click)="deleteCommentary(commentary,commentary.idCommentary); $event.stopPropagation()">x</button>
 		</div>
 	</div>
 
