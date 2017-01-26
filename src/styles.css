@@ -183,43 +183,31 @@ iframe{
 .nav-tabs, .nav-pills {
     text-align:center;
 }
-/* ************ STARS ************* */
-
-
-.reveal h1,
-.reveal h2,
-.reveal h3 {
-  text-shadow: 0 4px 5px rgba(60, 72, 96, 0.5);
+.margin-20{
+  margin:10px 0px;
 }
-.reveal blockquote {
-  text-align: justify;
-  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
-  margin: 1.5em 0 1.5em -1.5em;
-  padding: .75em .5em .75em 1em;
-  border-left: .5em solid #DDD;
+.cent{
+  width:100%;
 }
-.reveal blockquote .small:before,
-.reveal blockquote footer:before,
-.reveal blockquote small:before {
-  content: '\2014 \00A0';
+/* ****************** DETAIL FORMATION ********************** */
+iframe {
+    width: 100%;
+    height: 600px;
+    margin: 50px 0px;
 }
-.reveal blockquote,
-.reveal footer {
-  margin: 0 auto;
-  font-size: 1em;
-  line-height: 1.5;
+.mobs-2 {
+    height: 450px;
+    margin-bottom:10px;
 }
-.reveal .bar h2 {
-  width: 400%;
-  margin: 0 -50%;
-  background: rgba(0, 0, 0, 0.75);
-  color: #fff;
-  font-size: 3em;
+.fl-ri{
+  bottom:0;
+  right:0;
   position: absolute;
-  top: auto;
+  margin-right:15px;
 }
-.reveal code {
-  background-color: #3F3F3F;
+.fl-topri{
+  top:0;
+  margin-right:15px;
+  right:0;
+  position: absolute;
 }

@@ -1,89 +1,90 @@
 <div class="container">
 
-  <button (click)="goBack()">Retour</button>
+  <button class="btn-sucess pull-right" (click)="goBack()">Retour</button>
 
-    <div *ngIf="lesson">
-      <div class="row">
-        <h1>Cours <!-- <span>(catégorie: {{lesson.idCategory}})</span> --></h1>
-        <div class="col-xs-12 col-sm-4">
-          <img src="http://fakeimg.pl/300/" />
-        </div>
-        <div class="col-xs-12 col-sm-8">
-          <div class="row">
-            <div class="col-sm-6 col-xs-12">
-              <h2>{{lesson.subject}}</h2>
-            </div>
-            <!-- Vote en étoile -->
-            <div class="col-sm-6 col-xs-12">
-              <div class="lead">
-                <div id="stars" name="stars[]" class="starrr"></div>
-              </div>
-            </div>
+  <div *ngIf="lesson">
+    <div class="row">
+      <h1>Cours <!-- <span>(catégorie: {{lesson.idCategory}})</span> --></h1>
+      <div class="col-xs-12 col-sm-4">
+        <img src="http://fakeimg.pl/300/" />
+      </div>
+      <div class="col-xs-12 col-sm-8">
+        <div class="row">
+          <div class="col-sm-6 col-xs-12">
+            <h2>{{lesson.subject}}</h2>
           </div>
-          <div class="row">
-            <div class="col-xs-1">
-              <img class="img-responsive border-blue" src="../public/images/homme-3-min.svg" alt="">
-            </div>
-            <div class="col-xs-5">
-              <div *ngIf="lesson.user">
-                <label>Créateur du cours: </label> {{lesson.user.name}}
-              </div>
-            </div>
-            <div class="col-xs-6">
-              <p>{{countLessons}}</p>
-            </div>
-          </div>
-
-          <div class="row bc-white2">
-            <div class="col-xs-12">
-              <p>{{lesson.content}}</p>
-            </div>
-          </div>
-
-          <!-- Modal Button -->
-          <button class="btn btn-success pull-right">Noter ce cours</button>
-
-          <!-- Modal pour le vote -->
-          <div>
-            <!-- Vote en étoile -->
+          <!-- Vote en étoile -->
+          <div class="col-sm-6 col-xs-12">
             <div class="lead">
-                <div id="stars" name="stars[]" class="starrr"></div>
-              </div>
+              <div id="stars" name="stars[]" class="starrr"></div>
             </div>
           </div>
         </div>
-      </div>
-
-        <!-- <div>
-          <label>title: </label>
-          <input [(ngModel)]="lesson.subject" placeholder="Titre du cours" />
-          <label>Contenu: </label>
-          <textarea [(ngModel)]="lesson.content"></textarea>
+        <div class="row">
+          <div class="col-xs-1">
+            <img class="img-responsive border-blue" src="../public/images/homme-3-min.svg" alt="">
+          </div>
+          <div class="col-xs-5">
+            <div *ngIf="lesson.user">
+              {{lesson.user.name}}
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <p>{{countLessons}}</p>
+          </div>
         </div>
-        <button (click)="save()">Sauvegarder</button>-->
 
-      <div class="row">
-        <div class="col-xs-12">
-          <div>
-            <iframe src="http://52.59.249.232/angularjs#/1"></iframe>
+        <div class="row bc-white2">
+          <div class="col-xs-12">
+            <p>{{lesson.content}}</p>
+          </div>
+        </div>
+
+        <!-- Modal Button -->
+        <button class="btn btn-success pull-right">Noter ce cours</button>
+
+        <!-- Modal pour le vote -->
+        <div>
+        <!-- Vote en étoile -->
+        <div class="lead">
+            <div id="stars" name="stars[]" class="starrr"></div>
           </div>
         </div>
       </div>
-
     </div>
+  </div>
 
+      <!-- <div>
+        <label>title: </label>
+        <input [(ngModel)]="lesson.subject" placeholder="Titre du cours" />
+        <label>Contenu: </label>
+        <textarea [(ngModel)]="lesson.content"></textarea>
+      </div>
+      <button (click)="save()">Sauvegarder</button>-->
 
-    <div *ngIf="problematics">
-      <p>{{countLessons}}</p>
-
-      <div *ngFor="let problematic of problematics" [class.selected]="problematic === selectedProblematic">
-
-        <img (click)="gotoDetail(problematic)" src="http://fakeimg.pl/300/" />
-
-        <h5>{{problematic.entitled}}</h5>
-
-        <button class=""
-        (click)="gotoDetail(problematic)">Voir la problématique</button>
+  <div class="row">
+    <div class="col-xs-12">
+      <div>
+        <iframe src="http://52.59.249.232/angularjs#/1"></iframe>
       </div>
     </div>
+  </div>
 
+  <div class="row">
+    <h1>LES PROBLEMATIQUES</h1>
+    <p>{{countLessons}}</p>
+    <div *ngIf="problematics">
+      <div *ngFor="let problematic of problematics" [class.selected]="problematic === selectedProblematic">
+        <div class="col-xs-12 col-sm-3">
+
+            <img (click)="gotoDetail(problematic)" class="img-responsive" src="http://fakeimg.pl/300/" />
+
+            <h5>{{problematic.entitled}}</h5>
+
+            <button class="btn btn-success pull-right"
+            (click)="gotoDetail(problematic)">Voir la problématique</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
