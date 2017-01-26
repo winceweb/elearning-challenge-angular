@@ -39,6 +39,7 @@ export class ProblematicComponent implements OnInit {
   lessonName;
   urlEncoding;
   urlProblematic;
+  nameUserComment;
 
   private data: Observable<any>;
   private values: Commentary[];
@@ -78,8 +79,13 @@ export class ProblematicComponent implements OnInit {
         .subscribe(lesson => {
           this.lesson = lesson;
           this.lessonName = this.lesson.subject;
+        });
 
-
+        this.route.params
+        .switchMap((params: Params) => this.userService.getUser(this.problematic.idUser))
+        .subscribe(user => {
+          this.user = user;
+          this.userName = this.user.name;
         });
       });
 
@@ -123,11 +129,15 @@ export class ProblematicComponent implements OnInit {
 
   addCommentary(event) {
     this.urlProblematic = this.router.url;
+    let userName = this.authService.infoUser();
+    userName.then((res) => {
+      this.nameUserComment = res.name;
+    });
     if (!this.addCommentaryForm.value) { return; }
     this.commentaryService.create(this.addCommentaryForm.value, this.urlProblematic)
       .then(commentaries => {
         this.addCommentaryForm.value['created_at'] =  new Date();
-        this.addCommentaryForm.value['username'] = "Roslyn Kuhic";
+        this.addCommentaryForm.value['username'] = this.nameUserComment;
         if(this.isTeacher) {
          this.addCommentaryForm.value['class'] = "teacherCommentary";
         }
@@ -135,15 +145,15 @@ export class ProblematicComponent implements OnInit {
       });
   }
 
-  // deleteCommentary(commentary: Commentary,idCommentary: number): void {
-  //     this.urlProblematic = this.router.url;
-  //     this.commentaryService
-  //     .delete(idCommentary, this.urlProblematic)
-  //     .then(() => {
-  //       this.commentaries = this.commentaries.filter(h => h !== commentary);
-  //       if (this.selectedCommentary === commentary) { this.selectedCommentary = null; }
-  //     });
-  //   }
+  deleteCommentary(commentary: Commentary,idCommentary: number): void {
+      this.urlProblematic = this.router.url;
+      this.commentaryService
+      .delete(idCommentary, this.urlProblematic)
+      .then(() => {
+        this.commentaries = this.commentaries.filter(h => h !== commentary);
+        if (this.selectedCommentary === commentary) { this.selectedCommentary = null; }
+      });
+    }
 
 
   ngOnInit(): void {
