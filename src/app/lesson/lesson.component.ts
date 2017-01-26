@@ -77,7 +77,7 @@ export class LessonComponent implements AfterViewInit {
                 .then(noteLesson => {
                   this.noteLesson = noteLesson;
                   this.lessons[i]['image'] = this.sanitizer.bypassSecurityTrustResourceUrl(this.lessons[i]['image']);
-                  console.log(this.lessons[i]['image']);
+                  // console.log(this.lessons[i]['image']);
                   // console.log("idLesson --> " + this.lessons[i]['idLesson'] + " iteration --> "+ i +" Note --> " + this.noteLesson);
                   this.lessons[i]['noteLesson'] = this.noteLesson;
                   observer.next(this.lessons);
@@ -137,15 +137,6 @@ export class LessonComponent implements AfterViewInit {
       });
     }
 
-    rateLesson(event): void {
-      this.lessonService.rateLesson(event)
-      .then(lesson => {
-        this.lessons.push(event);
-      });
-      // console.log(event);
-      console.log(event);
-    }
-
     addLesson(event) {
       if (!this.addLessonForm.value) { return; }
       this.lessonService.create(this.addLessonForm.value)
@@ -153,7 +144,7 @@ export class LessonComponent implements AfterViewInit {
         this.lessons.push(this.addLessonForm.value);
       });
       // console.log(event);
-      console.log(this.addLessonForm.value);
+      // console.log(this.addLessonForm.value);
     }
 
     delete(lesson: Lesson): void {
