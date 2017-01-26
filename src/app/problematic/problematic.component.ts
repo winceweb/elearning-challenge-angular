@@ -9,6 +9,8 @@ import { Problematic } from '../../models/problematic';
 import { ProblematicService } from '../../services/problematic.service';
 import { Commentary } from '../../models/commentary';
 import { CommentaryService } from '../../services/commentary.service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 import { Lesson } from '../../models/lesson';
 import { LessonService } from '../../services/lesson.service';
 import { AuthService } from '../auth.service';
@@ -24,8 +26,9 @@ export class ProblematicComponent implements OnInit {
   // problematics: Problematic[];
   problematic: Problematic;
   selectedProblematic: Problematic;
-	lesson: Lesson;
+  lesson: Lesson;
   commentaries: Commentary[];
+  user: User;
 	isAuth: boolean = false;
 	isTeacher: boolean = false;
 	userName;
@@ -36,6 +39,7 @@ export class ProblematicComponent implements OnInit {
   constructor(
     private problematicService: ProblematicService,
     private commentaryService: CommentaryService,
+    private userService: UserService,
     private lessonService: LessonService,
     private route: ActivatedRoute,
     private router: Router,
@@ -72,14 +76,8 @@ export class ProblematicComponent implements OnInit {
   }
 
 
-
   ngOnInit(): void {
    
   }
-/*
-  gotoDetail(problematic: Problematic): void {
-    this.router.navigate(['/problematic', problematic.idProblematic]);
-  }
-  */
 
 }

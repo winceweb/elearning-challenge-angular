@@ -67,8 +67,11 @@ export class UserComponent implements OnInit {
               () => jQuery(".starrr").starrr()
           );
         });
-
   }
+
+  getRandomRating(){
+    return Math.floor((Math.random()*5)+1);
+  };
 
   addUser(event) {
     if (!this.addUserForm.value) { return; }
