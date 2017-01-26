@@ -7,4 +7,5 @@ export class Problematic {
   idUser: number;
   created_at: any;
   updated_at: any;
+  lessonName: string;
 }

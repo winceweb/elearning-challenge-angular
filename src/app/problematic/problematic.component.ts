@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 
+import { Observable } from 'rxjs/Observable';
 
 import { Problematic } from '../../models/problematic';
 import { ProblematicService } from '../../services/problematic.service';
@@ -33,8 +34,13 @@ export class ProblematicComponent implements OnInit {
 	isTeacher: boolean = false;
 	userName;
   newMovieUrl;
+  lessonName;
   urlEncoding;
   urlProblematic;
+
+  private data: Observable<any>;
+  private values: Commentary[];
+  private anyErrors: boolean;
 
   constructor(
     private problematicService: ProblematicService,
@@ -53,12 +59,45 @@ export class ProblematicComponent implements OnInit {
         this.problematic = problematic
         this.urlEncoding = "https://www.youtube.com/embed/"+this.problematic.movieUrl;
         this.newMovieUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(this.urlEncoding);
+
+
+         this.route.params
+        .switchMap((params: Params) => this.lessonService.getLesson(this.problematic.idLesson))
+        .subscribe(lesson => {
+          this.lesson = lesson;
+          this.lessonName = this.lesson.subject;
+          
+
+        });
       });
 
 
       this.route.params
       .switchMap((params: Params) => this.commentaryService.getCommentary(+params['id']))
-      .subscribe(commentaries => this.commentaries = commentaries);
+      .subscribe(commentaries => {
+        this.commentaries = commentaries;
+
+        this.data = new Observable(observer =>{
+          observer.next(this.commentaries);
+          for (let i = 0; i < this.commentaries.length; i++) {
+            this.userService
+              .getUser(this.commentaries[i]["idUser"])
+              .then(user =>{
+                this.user = user;
+                this.commentaries[i]['username'] = this.user.name;
+              })
+          }
+          setTimeout(() => {
+            observer.next(this.commentaries);
+            observer.complete();
+          }, 200);
+        })
+
+        let subscription = this.data.subscribe(
+          value => this.values = value,
+          error => this.anyErrors = true
+          )
+      });
     }
 
   public addCommentaryForm = this.fb.group({

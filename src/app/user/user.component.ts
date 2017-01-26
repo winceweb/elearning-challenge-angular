@@ -57,9 +57,15 @@ export class UserComponent implements OnInit {
         .then(users => {
           this.users = users;
           this.data = new Observable(observer => {
+              observer.next(this.users);
+              for (let i = 0; i < this.users.length; i++) {
+                this.users[i]['rateUser'] = Math.floor((Math.random()*5)+1);
+              }
               setTimeout(() => {
-                  jQuery(".starrr").starrr();
-                  observer.complete();
+                observer.next(this.users);
+                observer.complete();
+                jQuery(".starrr").starrr();
+                observer.complete();
               }, 200);
           });
 
