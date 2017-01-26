@@ -1,0 +1,60 @@
+.fdblc{
+	background: #fff;
+	padding: 30px;
+	margin-bottom: 35px;
+}
+
+.fdblc h2{
+	margin-top: 0;
+	border-bottom: 1px solid #1C293F;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+
+.commentary{
+	margin-top: 30px;
+}
+
+.avatar{
+	border: 1px solid #1C293F;
+	border-radius: 50% 50%;
+	width: 81px;
+    height: 81px;
+}
+
+.avatar img{
+	margin-top: 15px;
+}
+
+.details{
+	font-size: 10px;
+}
+
+.commentary p{
+	margin-top: 5px;
+}
+
+.iconform{
+    color: white;
+    background: #1C293F;
+    font-size: 22px;
+    border-radius: 50%;
+    padding: 12px;
+    width: 55px;
+    text-align: center;
+}
+
+textarea{
+	resize: none;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.subtitle{
+	border-top: 1px solid #1C293F;
+	border-bottom: 1px solid #1C293F;
+	text-transform: uppercase;
+	padding: 5px 200px 5px 15px;
+	display: inline-block;*
+	font-size: 14px;
+}

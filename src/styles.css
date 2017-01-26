@@ -196,8 +196,12 @@ iframe {
     margin: 50px 0px;
 }
 .mobs-2 {
-    height: 450px;
-    margin-bottom:10px;
+    height: 420px;
+    margin-bottom:50px;
+}
+.mobs-3 {
+    height: 315px;
+    margin-bottom:50px;
 }
 .fl-ri{
   bottom:0;
@@ -210,4 +214,11 @@ iframe {
   margin-right:15px;
   right:0;
   position: absolute;
+}
+.btn-pad{
+  margin-top:25px;
+}
+.iframe{
+  height:300px;
+  margin:0px !important;
 }

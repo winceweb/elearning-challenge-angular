@@ -9,6 +9,8 @@ import { Problematic } from '../../models/problematic';
 import { ProblematicService } from '../../services/problematic.service';
 import { Commentary } from '../../models/commentary';
 import { CommentaryService } from '../../services/commentary.service';
+import { Lesson } from '../../models/lesson';
+import { LessonService } from '../../services/lesson.service';
 import { AuthService } from '../auth.service';
 
 import { FormBuilder, Validators } from '@angular/forms';
@@ -20,8 +22,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ProblematicComponent implements OnInit {
   // problematics: Problematic[];
-	problematic: Problematic;
-	selectedProblematic: Problematic;
+  problematic: Problematic;
+  selectedProblematic: Problematic;
+	lesson: Lesson;
   commentaries: Commentary[];
 	isAuth: boolean = false;
 	isTeacher: boolean = false;
@@ -33,6 +36,7 @@ export class ProblematicComponent implements OnInit {
   constructor(
     private problematicService: ProblematicService,
     private commentaryService: CommentaryService,
+    private lessonService: LessonService,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
@@ -45,10 +49,10 @@ export class ProblematicComponent implements OnInit {
         this.problematic = problematic
         this.urlEncoding = "https://www.youtube.com/embed/"+this.problematic.movieUrl;
         this.newMovieUrl =  this.sanitizer.bypassSecurityTrustResourceUrl(this.urlEncoding);
-
       });
 
-       this.route.params
+
+      this.route.params
       .switchMap((params: Params) => this.commentaryService.getCommentary(+params['id']))
       .subscribe(commentaries => this.commentaries = commentaries);
     }

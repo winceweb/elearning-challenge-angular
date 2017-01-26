@@ -1,6 +1,6 @@
 <div class="container">
 
-  <button class="btn-sucess pull-right" (click)="goBack()">Retour</button>
+  <button class="btn-success btn pull-right" (click)="goBack()">Retour</button>
 
   <div *ngIf="lesson">
     <div class="row">
@@ -39,17 +39,27 @@
             <p>{{lesson.content}}</p>
           </div>
         </div>
-
         <!-- Modal Button -->
-        <button class="btn btn-success pull-right">Noter ce cours</button>
+        <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal">
+          Noter ce cours
+        </button>
 
-        <!-- Modal pour le vote -->
-        <div>
-        <!-- Vote en étoile -->
-        <div class="lead">
-            <div id="stars" name="stars[]" class="starrr"></div>
+        <div class="col-xs-12">
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="myModalLabel">NOTER CE COURS</h4>
+                </div>
+                <div class="modal-body">
+                  
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <!-- Fin Modal -->
       </div>
     </div>
   </div>
