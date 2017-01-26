@@ -60,7 +60,7 @@
           <ul class="nav nav-tabs ">
             <li *ngFor="let category of categories">
               <a (click)="getLesByCat(category.idCategory)" href="#tab_default_1" data-toggle="tab">
-                {{category.title}} {{category.idCategory}}
+                {{category.title}} <!-- {{category.idCategory}} -->
               </a>
             </li>
           </ul>
