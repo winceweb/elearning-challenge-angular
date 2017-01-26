@@ -2,6 +2,9 @@ export class Lesson {
   idLesson: number;
   endDate: any;
   startDate: any;
+  image: any;
+  urlLesson: any;
+  noteLesson: number;
   subject: string;
   content: string;
   user: any;

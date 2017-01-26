@@ -27,7 +27,11 @@ export class LessonComponent implements AfterViewInit {
   isAuth: boolean = false;
   isTeacher: boolean = false;
   userName;
-  private data: Observable<Array<number>>;
+  noteLesson: any;
+  private data: Observable<any>;
+  private finished: boolean;
+  private values: Lesson[];
+  private anyErrors: boolean;
 
   public addLessonForm = this.fb.group({
     subject: ["", Validators.required],
@@ -42,6 +46,7 @@ export class LessonComponent implements AfterViewInit {
     private userService: UserService,
     private router: Router, private auth: AuthService, private el:ElementRef,
     private authService: AuthService,
+
     public fb: FormBuilder) {
       this.isAuth = this.authService.isAuthenticated;
       this.isTeacher = this.authService.isTeacher;
@@ -59,17 +64,31 @@ export class LessonComponent implements AfterViewInit {
       this.lessonService
       .getLessons()
       .then(lessons => {
-        this.lessons = lessons;
-        this.data = new Observable(observer => {
-            setTimeout(() => {
-                jQuery(".starrr").starrr();
-                observer.complete();
-            }, 200);
-        });
+          this.lessons = lessons;
 
-        let subscription = this.data.subscribe(
+          this.data = new Observable(observer => {
+              observer.next(this.lessons);
+              for(let i = 0; i < this.lessons.length; ++i) {
+                this.lessonService
+                .getRatingLesson(this.lessons[i]['idLesson'])
+                .then(noteLesson => {
+                  this.noteLesson = noteLesson;
+                  // console.log("idLesson --> " + this.lessons[i]['idLesson'] + " iteration --> "+ i +" Note --> " + this.noteLesson);
+                  this.lessons[i]['noteLesson'] = this.noteLesson;
+                  observer.next(this.lessons);
+                });
+              }
+              setTimeout(() => {
+                  observer.next(this.lessons);
+                  observer.complete();
+              }, 200);
+          });
+
+          let subscription = this.data.subscribe(
+            value => this.values = value,
+            error => this.anyErrors = true,
             () => jQuery(".starrr").starrr()
-        );
+          );
 
       });
     }
@@ -85,17 +104,41 @@ export class LessonComponent implements AfterViewInit {
       .getLesByCat(idCategory)
       .then(lessons => {
           this.lessons = lessons;
+
           this.data = new Observable(observer => {
+              observer.next(this.lessons);
+              for(let i = 0; i < this.lessons.length; ++i) {
+                this.lessonService
+                .getRatingLesson(this.lessons[i]['idLesson'])
+                .then(noteLesson => {
+                  this.noteLesson = noteLesson;
+                  // console.log("idLesson --> " + this.lessons[i]['idLesson'] + " iteration --> "+ i +" Note --> " + this.noteLesson);
+                  this.lessons[i]['noteLesson'] = this.noteLesson;
+                  observer.next(this.lessons);
+                });
+              }
               setTimeout(() => {
-                  jQuery(".starrr").starrr()
+                  observer.next(this.lessons);
                   observer.complete();
               }, 200);
           });
 
           let subscription = this.data.subscribe(
-              () => jQuery(".starrr").starrr()
+            value => this.values = value,
+            error => this.anyErrors = true,
+            () => jQuery(".starrr").starrr()
           );
+
       });
+    }
+
+    rateLesson(event): void {
+      this.lessonService.rateLesson(event)
+      .then(lesson => {
+        this.lessons.push(event);
+      });
+      // console.log(event);
+      console.log(event);
     }
 
     addLesson(event) {
