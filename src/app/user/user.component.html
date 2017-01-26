@@ -1,43 +1,80 @@
-<h2>Les utilisateurs</h2>
-
-<!-- Modal "ajout de cours" -->
-<div>
-  <form [formGroup]="addUserForm" (ngSubmit)="addUser($event)">
-    <input formControlName="name" type="text" placeholder="Nom">
-    <input formControlName="email" type="text" placeholder="Email">
-    <input formControlName="isTeacher" type="text" placeholder="Professeur ou élève 0/1">
-    <input formControlName="isActive" type="text" placeholder="Actif 0/1">
-    <button type="submit">Ajouter</button>
-  </form>
-</div>
-<!-- Fin Modal -->
-
-
-<div class="users">
-
-  <div *ngFor="let user of users" [class.selected]="user === selectedUser">
-
-    <img (click)="gotoDetail(user)" src="http://fakeimg.pl/200x100/" />
-
-    <p>Utilisateur n°{{user.idUser}}</p>
-
-    <!-- Vote en étoile -->
-    <ul>
-      <li>x</li>
-      <li>x</li>
-      <li>x</li>
-      <li>x</li>
-      <li>x</li>
-    </ul>
-
-    <h5>{{user.name}}</h5>
-
-    <button class=""
-    (click)="gotoDetail(user)">Détails de l'utilisateur</button>
-
-    <button *ngIf="isTeacher" class="delete"
-    (click)="delete(user); $event.stopPropagation()">x</button>
-    <br /><br />
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6">
+      <h1>Utilisateurs</h1>
+    </div>
+    <div class="col-xs-6">
+      <button type="button" class="btn btn-pad btn-success pull-right btn-lg" data-toggle="modal" data-target="#myModal">
+        Ajouter un utilisateur
+      </button>
+    </div>
   </div>
 
+  <div class="row">
+
+    <div class="col-xs-12">
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <form [formGroup]="addUserForm" (ngSubmit)="addUser($event)">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">AJOUTER UN COURS</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-xs-12 margin-20">
+                    <input class="form-control" formControlName="name" type="text" placeholder="Nom">
+                  </div>
+                  <div class="col-xs-12 margin-20">
+                    <input class="form-control" formControlName="email" type="text" placeholder="Email">
+                  </div>
+                  <div class="col-xs-12 margin-20">
+                    <input class="form-control" formControlName="isTeacher" type="text" placeholder="Professeur ou élève 0/1">
+                  </div>
+                  <div class="col-xs-12 margin-20">
+                    <input class="form-control" formControlName="isActive" type="text" placeholder="Actif 0/1">
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit " class="btn pull-right btn btn-success">Ajouter</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+      <!-- Fin Modal -->
+
+    <div class="row norme-40">
+
+      <div *ngFor="let user of users" [class.selected]="user === selectedUser">
+        <div class="col-xs-12 col-sm-2 mobs-3" data-wow-duration="1s" data-wow-delay=".5s">
+          <div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
+          <!-- PHONE -->
+            <a (click)="gotoDetail(user)">
+              <img class="img-responsive border-blue full" src="../public/images/femme-1.svg" alt="">
+            </a>
+          </div>
+          
+          <div class="back-white2 shadows">
+          <!-- TITLE -->
+            <div class="">
+              <h2>{{user.name}}</h2>
+              <div class="lead">
+                <div id="stars" class="starrr" data-rating="4"></div>
+              </div>
+            </div>
+
+            <button *ngIf="isTeacher" class="delete pull-right fl-topri btn btn-danger" (click)="delete(user); $event.stopPropagation()">x</button>
+
+            <button (click)="gotoDetail(user)" class="pull-right fl-ri btn btn-success">Détails de l'utilisateur</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

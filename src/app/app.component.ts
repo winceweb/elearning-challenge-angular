@@ -14,10 +14,23 @@ declare var $: any;
 })
 export class AppComponent  implements OnInit {
 
-  constructor(private el:ElementRef) { }
+  isAuth: boolean = false;
+  isTeacher: boolean = false;
+
+  constructor(private el:ElementRef, private authService: AuthService) {
+    this.isAuth = this.authService.isAuthenticated;
+    this.isTeacher = this.authService.isTeacher;
+
+    let userRole = this.authService.infoUser();
+    userRole.then((res) => {
+      if (res.isTeacher == 1){
+        this.isTeacher = true;
+        console.log('Tu es un Teacher !!');
+      }
+    });
+  }
 
   ngOnInit() {
   }
 
 }
-

@@ -10,8 +10,7 @@
 				<a routerLink="/presentation">Présentation</a>
 				<a routerLink="/lessons">Formations</a>
 				<a routerLink="/contact">Contact</a>
-				<a routerLink="/login">Connexion</a>
-				<a routerLink="/users">Utilisateurs</a>
+				<a routerLink="/users" *ngIf="isTeacher">Utilisateurs</a>
 			</nav>
 		</div>
 	</div>
