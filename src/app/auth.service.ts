@@ -39,7 +39,7 @@ export class AuthService {
     var creds = 'username=' + usercreds.username + '&password='+ usercreds.password +'&client_id=id1&client_secret=secret1&grant_type=password';
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     return new Promise((resolve) => {
-      this.http.post('http://localhost:8000/oauth/access_token', creds, {headers: headers}).subscribe((data) => {
+      this.http.post('http://learn.it-akademy.fr:8080/oauth/access_token', creds, {headers: headers}).subscribe((data) => {
 
           if(data.json().access_token != "") {
             this.isAuthenticated = true;
@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   infoUser(){
-    return this.http.get('http://localhost:8000/api/v1/getUser', {headers: this.headers})
+    return this.http.get('http://learn.it-akademy.fr:8080/api/v1/getUser', {headers: this.headers})
       .toPromise()
       .then(response => response.json().data as User);
   }

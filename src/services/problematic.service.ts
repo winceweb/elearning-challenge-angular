@@ -10,7 +10,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 @Injectable()
 export class ProblematicService {
 
-  private problematicsUrl = 'http://localhost:8000/api/v1/problematic';  // URL to web api
+  private problematicsUrl = 'http://learn.it-akademy.fr:8080/api/v1/problematic';  // URL to web api
   headers;
   constructor(private http: Http, private localStorageService: LocalStorageService) {
     this.headers = this.localStorageService.get('headers');
@@ -24,7 +24,7 @@ export class ProblematicService {
   }
 
   getProblematicsByLesson(id: number): Promise<Problematic[]> {
-    const url = `${'http://localhost:8000/api/v1/lesson'}/${id}${'/problematic'}`;
+    const url = `${'http://learn.it-akademy.fr:8080/api/v1/lesson'}/${id}${'/problematic'}`;
     return this.http.get(url, {headers: this.headers})
            .toPromise()
            .then(response => response.json().data as Problematic[])

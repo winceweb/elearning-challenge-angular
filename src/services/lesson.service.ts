@@ -13,7 +13,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 @Injectable()
 export class LessonService {
 
-  private lessonsUrl = 'http://localhost:8000/api/v1/lesson';  // URL to web api
+  private lessonsUrl = 'http://learn.it-akademy.fr:8080/api/v1/lesson';  // URL to web api
   headers;
   constructor(private http: Http, private localStorageService: LocalStorageService) {
     this.headers = this.localStorageService.get('headers');
@@ -53,7 +53,7 @@ export class LessonService {
   rateLesson(id: number, value: number): Promise<string> {
     console.log('entre dans rateLesson');
     return this.http
-      .post('http://localhost:8000/api/v1/ratings', {rateable_id: id, value: value, rateable_type: 1}, {headers: this.headers})
+      .post('http://learn.it-akademy.fr:8080/api/v1/ratings', {rateable_id: id, value: value, rateable_type: 1}, {headers: this.headers})
       .toPromise()
       .then(res => res.json().data)
       .catch(this.handleError);
@@ -69,27 +69,27 @@ export class LessonService {
   }
 
   getCategories(): Promise<Category[]> {
-    return this.http.get('http://localhost:8000/api/v1/category', {headers: this.headers})
+    return this.http.get('http://learn.it-akademy.fr:8080/api/v1/category', {headers: this.headers})
                .toPromise()
                .then(response => response.json() as Category[])
                .catch(this.handleError);
   }
 
   getLesByCat(idCategory: number): Promise<Lesson[]> {
-    return this.http.get(`${'http://localhost:8000/api/v1/lesByCat'}/${idCategory}`, {headers: this.headers})
+    return this.http.get(`${'http://learn.it-akademy.fr:8080/api/v1/lesByCat'}/${idCategory}`, {headers: this.headers})
                .toPromise()
                .then(response => response.json().data as Lesson[])
                .catch(this.handleError);
   }
 
   getRatingLesson(idLesson: number): Promise<Ratings>{
-    return this.http.get(`${'http://localhost:8000/api/v1'}/1/ratings/${idLesson}`, {headers: this.headers})
+    return this.http.get(`${'http://learn.it-akademy.fr:8080/api/v1'}/1/ratings/${idLesson}`, {headers: this.headers})
                .toPromise()
                .then(response => response.json().data as Ratings)
                .catch(this.handleError);
   }
   getRatingProblematic(idProblematic: number): Promise<void>{
-    return this.http.get(`${'http://localhost:8000/api/v1'}/2/ratings/${idProblematic}`, {headers: this.headers})
+    return this.http.get(`${'http://learn.it-akademy.fr:8080/api/v1'}/2/ratings/${idProblematic}`, {headers: this.headers})
                .toPromise()
                .then(response => response.json().data)
                .catch(this.handleError);
