@@ -5,6 +5,8 @@ import 'rxjs/add/operator/toPromise';
 
 import { Lesson } from '../models/lesson';
 import { Category } from '../models/category';
+import { Ratings } from '../models/ratings';
+import { Note } from '../models/note';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
@@ -48,6 +50,14 @@ export class LessonService {
       .catch(this.handleError);
   }
 
+  rateLesson(note: Note): Promise<Lesson> {
+    return this.http
+      .post('http://localhost:8000/api/v1/ratings', JSON.stringify(note), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json().data)
+      .catch(this.handleError);
+  }
+
   update(lesson: Lesson): Promise<Lesson> {
     const url = `${this.lessonsUrl}/${lesson.idLesson}`;
     return this.http
@@ -68,6 +78,19 @@ export class LessonService {
     return this.http.get(`${'http://localhost:8000/api/v1/lesByCat'}/${idCategory}`, {headers: this.headers})
                .toPromise()
                .then(response => response.json().data as Lesson[])
+               .catch(this.handleError);
+  }
+
+  getRatingLesson(idLesson: number): Promise<Ratings>{
+    return this.http.get(`${'http://localhost:8000/api/v1'}/1/ratings/${idLesson}`, {headers: this.headers})
+               .toPromise()
+               .then(response => response.json().data as Ratings)
+               .catch(this.handleError);
+  }
+  getRatingProblematic(idProblematic: number): Promise<void>{
+    return this.http.get(`${'http://localhost:8000/api/v1'}/2/ratings/${idProblematic}`, {headers: this.headers})
+               .toPromise()
+               .then(response => response.json().data)
                .catch(this.handleError);
   }
 
