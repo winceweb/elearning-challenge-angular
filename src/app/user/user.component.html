@@ -1,8 +1,14 @@
 <div class="container">
-  <!-- Modal "ajout utilisateur" -->
-  <button type="button" class="btn btn-success pull-right btn-lg" data-toggle="modal" data-target="#myModal">
-    Ajouter un utilisateur
-  </button>
+  <div class="row">
+    <div class="col-xs-6">
+      <h1>Utilisateurs</h1>
+    </div>
+    <div class="col-xs-6">
+      <button type="button" class="btn btn-pad btn-success pull-right" data-toggle="modal" data-target="#myModal">
+        Ajouter un utilisateur
+      </button>
+    </div>
+  </div>
 
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <form [formGroup]="addUserForm" (ngSubmit)="addUser($event)">
@@ -38,36 +44,104 @@
   </div>
   <!-- Fin Modal -->
 
-  <div class="row">
-    <div class="col-md-12">
-      <h1>Utilisateurs</h1>
-
-      <div *ngFor="let user of users" [class.selected]="user === selectedUser">
-
-        <div class="col-xs-12 col-sm-2 mobs-3" data-wow-duration="1s" data-wow-delay=".5s">
-          <div data-wow-duration="1s" data-wow-delay=".5s">
-          <!-- PHONE -->
-            <a (click)="gotoDetail(user)">
-              <img class="img-responsive border-blue full" src="../public/images/femme-1.svg" alt="">
-            </a>
-          </div>
-
-          <div class="back-white2 shadows">
-          <!-- TITLE -->
-            <div class="">
-              <h2>{{user.name}}</h2>
-              <div class="lead">
-                <div id="stars" class="starrr" [attr.data-rating]=user.rateUser></div>
-              </div>
+    <div class="row norme-40">
+      <div class="col-xs-12 col-sm-6">
+        <div *ngFor="let user of users" [class.selected]="user === selectedUser">
+          <div class="col-xs-12 col-sm-4 mobs-3" data-wow-duration="1s" data-wow-delay=".5s">
+            <div data-wow-duration="1s" data-wow-delay=".5s">
+            <!-- PHONE -->
+              <a (click)="gotoDetail(user)">
+                <img class="img-responsive border-blue full" src="../public/images/femme-1.svg" alt="">
+              </a>
             </div>
 
-            <button *ngIf="isTeacher" class="delete pull-right fl-topri btn btn-danger" (click)="delete(user); $event.stopPropagation()">x</button>
+            <div class="back-white2 shadows">
+            <!-- TITLE -->
+              <div class="">
+                <h2>{{user.name}}</h2>
+                <div class="lead">
+                  <div id="stars" class="starrr" data-rating="4"></div>
+                </div>
+              </div>
 
-            <button (click)="gotoDetail(user)" class="pull-right btn btn-success">Détails de l'utilisateur</button>
+              <button *ngIf="isTeacher" class="delete pull-right fl-topri btn btn-danger" (click)="delete(user); $event.stopPropagation()">x</button>
+
+
+              <button (click)="gotoDetail(user)" class="pull-right fl-ri btn btn-success">Détails</button>
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="aa_htmlTable">
+          <h2 class="aa_h2 pull-right">Classement meilleurs utilisateurs</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Nombre de problématiques</th>
+                <th>Notes</th>
+                <th>Position</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Toby Effertz</td>
+                <td>7</td>
+                <td></td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Bailey Stanton</td>
+                <td>7</td>
+                <td></td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Adelbert Kuhic Sr.</td>
+                <td>6</td>
+                <td></td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>Hardy Mante</td>
+                <td>6</td>
+                <td></td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>Miss Sadye Spencer</td>
+                <td>6</td>
+                <td></td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td>Raleigh Dickinson Sr.</td>
+                <td>5</td>
+                <td></td>
+                <td>6</td>
+              </tr>
+              <tr>
+                <td>Ms. Marietta VonRueden V</td>
+                <td>5</td>
+                <td></td>
+                <td>7</td>
+              </tr>
+              <tr>
+                <td>Ford Murray DVM</td>
+                <td>5</td>
+                <td></td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td>Ford Murray DVM</td>
+                <td>4</td>
+                <td></td>
+                <td>9</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-
-</div>

@@ -157,7 +157,7 @@ export class LessonComponent implements AfterViewInit {
     }
 
     ngOnInit(): void {
-      this.getLessons();
+      this.getLesByCat(1);
       this.getCategories();
     }
 
