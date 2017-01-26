@@ -5,6 +5,7 @@ import { Location }               from '@angular/common';
 import { Router } from '@angular/router';
 import { Lesson }        from '../../../models/lesson';
 import { Problematic }        from '../../../models/problematic';
+import { Note }        from '../../../models/note';
 import { LessonService } from '../../../services/lesson.service';
 import { ProblematicService } from '../../../services/problematic.service';
 
@@ -26,10 +27,11 @@ export class LessonDetailsComponent implements OnInit {
   selectedLesson: Lesson;
   countLessons: string;
   note: any;
-  currentId: any;
+  public currentId: any;
   private data: Observable<any>;
   private finished: boolean;
   private anyErrors: boolean;
+  message: string;
 
   constructor(
     private lessonService: LessonService,
@@ -39,10 +41,13 @@ export class LessonDetailsComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
 
+    this.route.params.subscribe(params => {
+        this.currentId = params['id'];
+    });
 
-    this.route.params.switchMap((params: Params) => this.currentId = params['id']).subscribe();
+    console.log(this.currentId);
 
     this.route.params
       .switchMap((params: Params) => this.lessonService.getLesson(+params['id']))
@@ -84,21 +89,14 @@ export class LessonDetailsComponent implements OnInit {
       let subscription = this.data.subscribe(
         value => this.note = value,
         error => this.anyErrors = true,
-        () => this.launchjquery()
+        () => this.launchjquery(this.currentId)
       );
 
     });
 
   }
 
-  rateLesson(event): void {
-    this.lessonService.rateLesson(event)
-    .then(lesson => {
-      this.lessons.push(event);
-    });
-    // console.log(event);
-    console.log(event);
-  }
+
 
   goBack(): void {
     this.location.back();
@@ -108,22 +106,25 @@ export class LessonDetailsComponent implements OnInit {
     this.router.navigate(['/problematic', problematic.idProblematic]);
   }
 
-  launchjquery(): void{
+  launchjquery(id: number): void{
 
     jQuery(".starrr").starrr();
 
-    jQuery("#myModal #stars").on('starrr:change', function(e, value){
-      jQuery('#myModal #count').html(value);
-      console.log(this.currentId + " --- " + value);
-      this.rateLesson(value, this.currentId);
+    jQuery("#myModal #stars").on('starrr:change', (e, value) => {
+      // jQuery('#myModal #count').html(value);
+      // console.log(id + " --- " + value);
+      this.lessonService.rateLesson(id, value)
+      .then(message => {
+        this.message = message;
+      }).catch((message) => {
+        this.message = JSON.parse(message._body).message;
+      });
     });
 
     // jQuery('#stars-existing').on('starrr:change', function(e, value){
     //   jQuery('#count-existing').html(value);
     // });
   }
-
-
 
 
 

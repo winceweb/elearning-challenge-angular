@@ -141,7 +141,7 @@ export class LessonComponent implements AfterViewInit {
       if (!this.addLessonForm.value) { return; }
       this.lessonService.create(this.addLessonForm.value)
       .then(lesson => {
-        this.lessons.push(this.addLessonForm.value);
+        this.values.push(this.addLessonForm.value);
       });
       // console.log(event);
       // console.log(this.addLessonForm.value);
@@ -151,7 +151,7 @@ export class LessonComponent implements AfterViewInit {
       this.lessonService
       .delete(lesson.idLesson)
       .then(() => {
-        this.lessons = this.lessons.filter(h => h !== lesson);
+        this.values = this.values.filter(h => h !== lesson);
         if (this.selectedLesson === lesson) { this.selectedLesson = null; }
       });
     }
