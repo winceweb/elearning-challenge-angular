@@ -81,12 +81,25 @@ export class UserComponent implements OnInit {
 
   addUser(event) {
     if (!this.addUserForm.value) { return; }
+    this.addUserForm.value["password"] = "secret";
+    if(this.addUserForm.value["isTeacher"] == true) {
+      this.addUserForm.value["isTeacher"] = 1;
+    }else{
+      this.addUserForm.value["isTeacher"] = 0;
+    }
+
+    if(this.addUserForm.value["isActive"] == true) {
+      this.addUserForm.value["isActive"] = 1;
+    }else{
+      this.addUserForm.value["isActive"] = 0;
+    }
+    this.addUserForm.value["image"] = "1";
     this.userService.create(this.addUserForm.value)
       .then(user => {
         this.users.push(this.addUserForm.value);
       });
     // console.log(event);
-    // console.log(this.addUserForm.value);
+    console.log(this.addUserForm.value);
   }
 
   delete(user: User): void {

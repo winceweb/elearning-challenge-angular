@@ -8,6 +8,9 @@ import { Problematic }        from '../../../models/problematic';
 import { LessonService } from '../../../services/lesson.service';
 import { ProblematicService } from '../../../services/problematic.service';
 
+
+import { FormBuilder, Validators } from '@angular/forms';
+
 import {Observable} from 'rxjs/Observable';
 
 declare var jQuery: any;
@@ -27,16 +30,25 @@ export class LessonDetailsComponent implements OnInit {
   countLessons: string;
   note: any;
   currentId: any;
+  addProblematicUrl: string;
   private data: Observable<any>;
   private finished: boolean;
   private anyErrors: boolean;
+
+  public addProblematiqueForm = this.fb.group({
+    entitled: ["", Validators.required],
+    movieUrl: ["", Validators.required],
+    caption: ["", Validators.required]
+  });
+
 
   constructor(
     private lessonService: LessonService,
     private problematicService: ProblematicService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    public fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -121,6 +133,18 @@ export class LessonDetailsComponent implements OnInit {
     // jQuery('#stars-existing').on('starrr:change', function(e, value){
     //   jQuery('#count-existing').html(value);
     // });
+  }
+
+  addProblematique(event) {
+    if (!this.addProblematiqueForm.value) { return; }
+    this.addProblematicUrl = this.router.url;
+    console.log(this.addProblematicUrl);
+    this.problematicService.create(this.addProblematiqueForm.value,  this.addProblematicUrl)
+    .then(lesson => {
+      this.problematics.push(this.addProblematiqueForm.value);
+    });
+    // console.log(event);
+    console.log(this.addProblematiqueForm.value);
   }
 
 

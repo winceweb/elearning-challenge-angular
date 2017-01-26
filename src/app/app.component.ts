@@ -16,6 +16,7 @@ export class AppComponent  implements OnInit {
 
   isAuth: boolean = false;
   isTeacher: boolean = false;
+  actualUserId;
 
   constructor(private el:ElementRef, private authService: AuthService) {
     this.isAuth = this.authService.isAuthenticated;
@@ -27,6 +28,7 @@ export class AppComponent  implements OnInit {
         this.isTeacher = true;
         console.log('Tu es un Teacher !!');
       }
+      this.actualUserId = res.idUser;
     });
   }
 

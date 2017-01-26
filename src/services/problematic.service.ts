@@ -11,6 +11,7 @@ import { LocalStorageService } from 'angular-2-local-storage';
 export class ProblematicService {
 
   private problematicsUrl = 'http://localhost:8000/api/v1/problematic';  // URL to web api
+  private urlProblematic;
   headers;
   constructor(private http: Http, private localStorageService: LocalStorageService) {
     this.headers = this.localStorageService.get('headers');
@@ -47,9 +48,11 @@ export class ProblematicService {
       .catch(this.handleError);
   }
 
-  create(problematic: Problematic): Promise<Problematic> {
+  create(problematic: Problematic, addProblematicUrl: string): Promise<Problematic> {
+    const url = `http://localhost:8000/api/v1${addProblematicUrl}/problematic`;
+    console.log(url);
     return this.http
-      .post(this.problematicsUrl, JSON.stringify(problematic), {headers: this.headers})
+      .post(url, JSON.stringify(problematic), {headers: this.headers})
       .toPromise()
       .then(res => res.json().data)
       .catch(this.handleError);
