@@ -38,9 +38,9 @@ export class UserDetailsComponent implements OnInit {
       .subscribe(problematics => {
         this.problematics = problematics
         if(problematics.length > 1){
-          this.countLessons = problematics.length+" problématiques en relation avec ce cours";
+          this.countLessons = problematics.length+" problématiques posées par cet élève";
         }else{
-          this.countLessons = "Une problématique en relation avec ce cours";
+          this.countLessons = "Une problématique posée par cet élève";
         }
       });
   }

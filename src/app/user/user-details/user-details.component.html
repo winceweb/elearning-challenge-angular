@@ -9,12 +9,11 @@
           </div>
             <!-- <p>Actif : {{user.isActive}}</p> -->
           <div class="col-xs-8">
-            <h3>{{user.isTeacher}} <span>{{user.name}}</span></h3>
-            <label>Date de création: </label>{{user.created_at}}
-            <br />
-            <label>Date de dernière modification: </label>{{user.updated_at}}
-            <h2>{{user.name}}</h2>
+            <h3><span>{{user.name}}</span></h3>
             <h3>{{user.email}}</h3>
+            <label>Date de création: </label>{{user.created_at | date: 'dd/MM/yyyy'}}
+            <br />
+            <label>Date de dernière modification: </label>{{user.updated_at | date: 'dd/MM/yyyy'}}
             <!-- Vote en étoile -->
             <div class="lead">
               <div id="stars" class="starrr" data-rating="4"></div>
@@ -28,10 +27,7 @@
           <p>{{countLessons}}</p>
           <div *ngIf="problematics">
             <div *ngFor="let problematic of problematics" [class.selected]="problematic === selectedProblematic">
-              <div class="col-xs-12 col-sm-3">
-
-                  <img (click)="gotoDetail(problematic)" class="img-responsive" src="http://fakeimg.pl/300/" />
-
+              <div class="col-xs-12 col-sm-4 singleProblematic">
                   <h5>{{problematic.entitled}}</h5>
 
                   <button class="btn btn-success pull-right"

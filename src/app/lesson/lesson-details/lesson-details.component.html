@@ -1,11 +1,11 @@
 <div class="container">
 
   <button class="btn-success btn pull-right" (click)="goBack()">Retour</button>
-  <button type="button" class="btn btn-success pull-right btn-lg" data-toggle="modal" data-target="#myModal">
+  <button *ngIf="!isTeacher" type="button" class="btn btn-success pull-right mr" data-toggle="modal" data-target="#problematicModale">
     Ajouter une problématique
   </button>
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade" id="problematicModale" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <form [formGroup]="addProblematiqueForm" (ngSubmit)="addProblematique($event)">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -121,10 +121,7 @@
     <p>{{countLessons}}</p>
     <div *ngIf="problematics">
       <div *ngFor="let problematic of problematics" [class.selected]="problematic === selectedProblematic">
-        <div class="col-xs-12 col-sm-3">
-
-            <img (click)="gotoDetail(problematic)" class="img-responsive" src="http://fakeimg.pl/300/" />
-
+        <div class="col-xs-12 col-sm-4 singleProblematic">
             <h5>{{problematic.entitled}}</h5>
 
             <button class="btn btn-success pull-right"

@@ -7,7 +7,7 @@ import { Lesson }        from '../../../models/lesson';
 import { Problematic }        from '../../../models/problematic';
 import { LessonService } from '../../../services/lesson.service';
 import { ProblematicService } from '../../../services/problematic.service';
-
+import { AuthService } from '../../auth.service';
 
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -31,6 +31,8 @@ export class LessonDetailsComponent implements OnInit {
   note: any;
   currentId: any;
   addProblematicUrl: string;
+  isTeacher: boolean = false;
+
   private data: Observable<any>;
   private finished: boolean;
   private anyErrors: boolean;
@@ -48,8 +50,12 @@ export class LessonDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    public fb: FormBuilder
-  ) {}
+    public fb: FormBuilder,
+    private authService: AuthService
+  ) {
+    this.isTeacher = this.authService.isTeacher;
+    console.log(this.isTeacher);
+  }
 
   ngOnInit(): void {
 
@@ -139,7 +145,7 @@ export class LessonDetailsComponent implements OnInit {
     if (!this.addProblematiqueForm.value) { return; }
     this.addProblematicUrl = this.router.url;
     console.log(this.addProblematicUrl);
-    this.problematicService.create(this.addProblematiqueForm.value,  this.addProblematicUrl)
+    this.problematicService.create(this.addProblematiqueForm.value,this.addProblematicUrl)
     .then(lesson => {
       this.problematics.push(this.addProblematiqueForm.value);
     });

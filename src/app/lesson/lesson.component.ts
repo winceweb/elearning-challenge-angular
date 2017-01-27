@@ -142,7 +142,9 @@ export class LessonComponent implements AfterViewInit {
       this.lessonService.create(this.addLessonForm.value)
       .then(lesson => {
         this.lessons.push(this.addLessonForm.value);
+        console.log(this.lessons);
       });
+      // this.router.navigate(['/lesson', lesson.idLesson]);
       // console.log(event);
       // console.log(this.addLessonForm.value);
     }
