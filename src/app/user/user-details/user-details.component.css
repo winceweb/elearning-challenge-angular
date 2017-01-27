@@ -1,3 +1,7 @@
 .singleProblematic{
 	margin-bottom: 40px;
 }
+
+h2{
+	min-height: 74px;
+}

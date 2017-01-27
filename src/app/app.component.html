@@ -10,8 +10,8 @@
 				<a routerLink="/presentation">Présentation</a>
 				<a routerLink="/lessons">Formations</a>
 				<a routerLink="/contact">Contact</a>
-				<a routerLink="/users" *ngIf="isTeacher">Utilisateurs</a>
-				<a routerLink="/user/{{actualUserId}}" *ngIf="!isTeacher">Mon Profil</a>
+				<a routerLink="/users" *ngIf="isTeacher == 1">Utilisateurs</a>
+				<a routerLink="/user/{{actualUserId}}" *ngIf="isTeacher == 0">Mon Profil</a>
 			</nav>
 		</div>
 	</div>

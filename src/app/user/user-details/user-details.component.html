@@ -21,8 +21,7 @@
           </div>
         </div>
 
-
-        <div class="row">
+        <div *ngIf="user.isTeacher == 0" class="row">
           <h1>LES PROBLEMATIQUES</h1>
           <p>{{countLessons}}</p>
           <div *ngIf="problematics">
@@ -33,6 +32,41 @@
                   <button class="btn btn-success pull-right"
                   (click)="gotoDetail(problematic)">Voir la problématique</button>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="user.isTeacher == 1" class="row">
+          <h1>LES FORMATIONS</h1>
+          <div *ngIf="lessons">
+            <div *ngFor="let lesson of lessons" [class.selected]="lesson === selectedLesson">
+              <div *ngIf="lesson.idUser == user.idUser" data-wow-duration="1s" data-wow-delay=".5s">
+                <div class="col-xs-12 col-sm-3 mobs-1" data-wow-duration="1s" data-wow-delay=".5s">
+                  <div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
+                    <!-- PHONE -->
+                    <a (click)="gotoDetailLesson(lesson)">
+                      <img class="img-responsive border-blue full max" [src]="lesson.image" alt="">
+                    </a>
+                  </div>
+                  <div class="back-white2 shadows">
+                    <!-- TITLE -->
+                    <div class="">
+                      <h2>{{lesson.subject}}</h2>
+                      <br>
+                      <div class="col-xs-8">
+                        <div class="lead">
+                          <div id="stars" class="starrr" attr.data-rating="{{lesson.noteLesson}}"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button *ngIf="isTeacher" class="delete fl-topri pull-right btn btn-danger"
+                    (click)="delete(lesson); $event.stopPropagation()">x</button>
+
+                    <button (click)="gotoDetail(lesson)" class="pull-right fl-ri btn btn-success">Voir le cours</button>
+
+                  </div>
+                </div>
             </div>
           </div>
         </div>

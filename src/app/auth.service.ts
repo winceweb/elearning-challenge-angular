@@ -58,6 +58,11 @@ export class AuthService {
       .then(response => response.json().data as User);
   }
 
+  loginInit(){
+    this.isAuthenticated = false;
+    this.isTeacher = false;
+  }
+
 
 
 }

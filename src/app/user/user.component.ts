@@ -1,5 +1,6 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from '@angular/router';
 
 import {Observable} from 'rxjs/Observable';
@@ -37,7 +38,9 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private authService: AuthService,
+    private route: ActivatedRoute,
     public fb: FormBuilder) {
+
       this.isAuth = this.authService.isAuthenticated;
       this.isTeacher = this.authService.isTeacher;
 
@@ -100,6 +103,18 @@ export class UserComponent implements OnInit {
       });
     // console.log(event);
     console.log(this.addUserForm.value);
+
+    this.route.params
+      .switchMap((params: Params) => this.userService.getUsers())
+      .subscribe(users => {
+        this.users = users;
+
+        for(let i = 0; i < this.users.length; ++i) {
+          if(this.users[i].email == this.addUserForm.value.email) {
+            this.router.navigate(['/user', this.users[i].idUser]);
+          }
+        }
+      });
   }
 
   delete(user: User): void {

@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
 import { Lesson }        from '../../../models/lesson';
 import { Problematic }        from '../../../models/problematic';
 import { Note }        from '../../../models/note';
+import { User }        from '../../../models/user';
 import { LessonService } from '../../../services/lesson.service';
+import { UserService } from '../../../services/user.service';
 import { ProblematicService } from '../../../services/problematic.service';
 import { AuthService } from '../../auth.service';
 
@@ -24,6 +26,7 @@ declare var bootstrap: any;
 })
 export class LessonDetailsComponent implements OnInit {
   lesson: Lesson;
+  user: User;
   lessons: Lesson[];
   problematic: Problematic;
   problematics: Problematic[];
@@ -48,6 +51,7 @@ export class LessonDetailsComponent implements OnInit {
 
   constructor(
     private lessonService: LessonService,
+    private userService: UserService,
     private problematicService: ProblematicService,
     private route: ActivatedRoute,
     private router: Router,
@@ -55,6 +59,7 @@ export class LessonDetailsComponent implements OnInit {
     public fb: FormBuilder,
     private authService: AuthService
   ) {
+    jQuery(".modal-backdrop").removeClass("in");
     this.isTeacher = this.authService.isTeacher;
     console.log(this.isTeacher);
   }
@@ -65,11 +70,16 @@ export class LessonDetailsComponent implements OnInit {
         this.currentId = params['id'];
     });
 
-    console.log(this.currentId);
-
     this.route.params
       .switchMap((params: Params) => this.lessonService.getLesson(+params['id']))
-      .subscribe(lesson => this.lesson = lesson);
+      .subscribe(lesson => {
+        this.lesson = lesson;
+        this.route.params
+          .switchMap((params: Params) => this.userService.getUser(this.lesson.idUser))
+          .subscribe(user => {
+            this.user = user;        
+          });        
+      });
 
     this.route.params
       .switchMap((params: Params) => this.problematicService.getProblematicsByLesson(+params['id']))
@@ -77,6 +87,8 @@ export class LessonDetailsComponent implements OnInit {
         this.problematics = problematics;
         if(problematics.length > 1){
           this.countLessons = problematics.length+" problématiques en relation avec ce cours";
+        }else if(problematics.length == 0){
+          this.countLessons = "Aucune problématique pour ce cours";
         }else{
           this.countLessons = "Une problématique en relation avec ce cours";
         }
@@ -154,6 +166,20 @@ export class LessonDetailsComponent implements OnInit {
     });
     // console.log(event);
     console.log(this.addProblematiqueForm.value);
+
+    this.route.params
+      .switchMap((params: Params) => this.problematicService.getProblematicsByLesson(+params['id']))
+      .subscribe(problematics => {
+        this.problematics = problematics;
+
+        for(let i = 0; i < this.problematics.length; ++i) {
+          if(this.problematics[i].entitled == this.addProblematiqueForm.value.entitled) {
+            this.router.navigate(['/problematic', this.problematics[i].idProblematic]);
+          }
+        }
+      });
+
+
   }
 
 

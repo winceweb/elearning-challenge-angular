@@ -12,7 +12,12 @@ export class LoginComponent implements OnInit {
   username: '',
   password: ''
   };
-  constructor(private router:Router, private auth: AuthService) { }
+
+  isTeacher: boolean = false;
+
+  constructor(private router:Router, private auth: AuthService) {
+    auth.loginInit();
+  }
 
   ngOnInit() {
   }

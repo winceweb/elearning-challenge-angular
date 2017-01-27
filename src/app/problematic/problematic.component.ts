@@ -34,7 +34,7 @@ export class ProblematicComponent implements OnInit {
   user: User;
 	isAuth: boolean = false;
 	isTeacher: boolean = false;
-	userName;
+	username;
   newMovieUrl;
   lessonName;
   urlEncoding;
@@ -56,6 +56,7 @@ export class ProblematicComponent implements OnInit {
     private sanitizer: DomSanitizer,
     public fb: FormBuilder)
     {
+      jQuery(".modal-backdrop").removeClass("in");
 
         this.isTeacher = this.authService.isTeacher;
         let userRole = this.authService.infoUser();
@@ -85,7 +86,7 @@ export class ProblematicComponent implements OnInit {
         .switchMap((params: Params) => this.userService.getUser(this.problematic.idUser))
         .subscribe(user => {
           this.user = user;
-          this.userName = this.user.name;
+          this.username = this.user.name;
         });
       });
 

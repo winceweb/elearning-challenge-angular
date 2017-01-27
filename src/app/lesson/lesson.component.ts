@@ -2,10 +2,12 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import {Observable} from 'rxjs/Observable';
 
 import { Lesson } from '../../models/lesson';
+import { User } from '../../models/user';
 import { Category } from '../../models/category';
 import { LessonService } from '../../services/lesson.service';
 import { UserService } from '../../services/user.service';
@@ -23,6 +25,7 @@ declare var bootstrap: any;
 })
 export class LessonComponent implements AfterViewInit {
   lessons: Lesson[];
+  user: User;
   categories: Category[];
   selectedLesson: Lesson;
   isAuth: boolean = false;
@@ -30,6 +33,7 @@ export class LessonComponent implements AfterViewInit {
   userName;
   noteLesson: any;
   private data: Observable<any>;
+  private dataUser: Observable<any>;
   private finished: boolean;
   private values: Lesson[];
   private anyErrors: boolean;
@@ -47,6 +51,7 @@ export class LessonComponent implements AfterViewInit {
   constructor(
     private lessonService: LessonService,
     private userService: UserService,
+    private route: ActivatedRoute,
     private router: Router, private auth: AuthService, private el:ElementRef,
     private authService: AuthService,
     private sanitizer: DomSanitizer,
@@ -68,31 +73,59 @@ export class LessonComponent implements AfterViewInit {
       .getLessons()
       .then(lessons => {
           this.lessons = lessons;
-
           this.data = new Observable(observer => {
-              observer.next(this.lessons);
-              for(let i = 0; i < this.lessons.length; ++i) {
-                this.lessonService
-                .getRatingLesson(this.lessons[i]['idLesson'])
-                .then(noteLesson => {
-                  this.noteLesson = noteLesson;
-                  this.lessons[i]['image'] = this.sanitizer.bypassSecurityTrustResourceUrl(this.lessons[i]['image']);
-                  // console.log(this.lessons[i]['image']);
-                  // console.log("idLesson --> " + this.lessons[i]['idLesson'] + " iteration --> "+ i +" Note --> " + this.noteLesson);
-                  this.lessons[i]['noteLesson'] = this.noteLesson;
-                  observer.next(this.lessons);
-                });
-              }
-              setTimeout(() => {
-                  observer.next(this.lessons);
-                  observer.complete();
-              }, 200);
+            observer.next(this.lessons);
+            for(let i = 0; i < this.lessons.length; ++i) {
+              this.lessonService
+              .getRatingLesson(this.lessons[i]['idLesson'])
+              .then(noteLesson => {
+                this.noteLesson = noteLesson;
+                this.lessons[i]['image'] = this.sanitizer.bypassSecurityTrustResourceUrl(this.lessons[i]['image']);
+                // console.log(this.lessons[i]['image']);
+                // console.log("idLesson --> " + this.lessons[i]['idLesson'] + " iteration --> "+ i +" Note --> " + this.noteLesson);
+                this.lessons[i]['noteLesson'] = this.noteLesson;
+                
+                observer.next(this.lessons);
+              });
+            }
+
+            setTimeout(() => {
+                observer.next(this.lessons);
+                observer.complete();
+            }, 200);
           });
 
           let subscription = this.data.subscribe(
             value => this.values = value,
             error => this.anyErrors = true,
             () => jQuery(".starrr").starrr()
+          );
+
+          this.dataUser = new Observable(observer => {
+            observer.next(this.lessons);
+            console.log(this.lessons.length);
+            for(let i = 0; i < this.lessons.length; ++i) {
+              this.userService
+              .getUser(this.lessons[i]['idUser'])
+              .then(user => {
+                this.user = user;
+
+                this.lessons[i]['username'] = this.user.name;
+                console.log(this.lessons[i]['username']);
+                console.log('---');
+                observer.next(this.lessons);
+              });
+            }
+
+            setTimeout(() => {
+                observer.next(this.lessons);
+                observer.complete();
+            }, 200);
+          });
+
+          let subscriptionUser = this.dataUser.subscribe(
+            value => this.values = value,
+            error => this.anyErrors = true
           );
 
       });
@@ -111,27 +144,55 @@ export class LessonComponent implements AfterViewInit {
           this.lessons = lessons;
 
           this.data = new Observable(observer => {
+            observer.next(this.lessons);
+            for(let i = 0; i < this.lessons.length; ++i) {
+              this.lessonService
+              .getRatingLesson(this.lessons[i]['idLesson'])
+              .then(noteLesson => {
+                this.noteLesson = noteLesson;
+                // console.log("idLesson --> " + this.lessons[i]['idLesson'] + " iteration --> "+ i +" Note --> " + this.noteLesson);
+                this.lessons[i]['noteLesson'] = this.noteLesson;
+                observer.next(this.lessons);
+              });
+            }
+            setTimeout(() => {
               observer.next(this.lessons);
-              for(let i = 0; i < this.lessons.length; ++i) {
-                this.lessonService
-                .getRatingLesson(this.lessons[i]['idLesson'])
-                .then(noteLesson => {
-                  this.noteLesson = noteLesson;
-                  // console.log("idLesson --> " + this.lessons[i]['idLesson'] + " iteration --> "+ i +" Note --> " + this.noteLesson);
-                  this.lessons[i]['noteLesson'] = this.noteLesson;
-                  observer.next(this.lessons);
-                });
-              }
-              setTimeout(() => {
-                  observer.next(this.lessons);
-                  observer.complete();
-              }, 200);
-          });
+              observer.complete();
+            }, 200);
+        });
 
           let subscription = this.data.subscribe(
             value => this.values = value,
             error => this.anyErrors = true,
             () => jQuery(".starrr").starrr()
+          );
+
+
+          this.dataUser = new Observable(observer => {
+            observer.next(this.lessons);
+            console.log(this.lessons.length);
+            for(let i = 0; i < this.lessons.length; ++i) {
+              this.userService
+              .getUser(this.lessons[i]['idUser'])
+              .then(user => {
+                this.user = user;
+
+                this.lessons[i]['username'] = this.user.name;
+                console.log(this.lessons[i]['username']);
+                console.log('---');
+                observer.next(this.lessons);
+              });
+            }
+
+            setTimeout(() => {
+                observer.next(this.lessons);
+                observer.complete();
+            }, 200);
+          });
+
+          let subscriptionUser = this.dataUser.subscribe(
+            value => this.values = value,
+            error => this.anyErrors = true
           );
 
       });
@@ -146,6 +207,19 @@ export class LessonComponent implements AfterViewInit {
       // this.router.navigate(['/lesson', lesson.idLesson]);
       // console.log(event);
       // console.log(this.addLessonForm.value);
+
+      this.route.params
+        .switchMap((params: Params) => this.lessonService.getLessons())
+        .subscribe(lessons => {
+          this.lessons = lessons;
+
+          for(let i = 0; i < this.lessons.length; ++i) {
+            if(this.lessons[i].subject == this.addLessonForm.value.subject) {
+              this.router.navigate(['/lesson', this.lessons[i].idLesson]);
+            }
+          }
+        });
+
     }
 
     delete(lesson: Lesson): void {

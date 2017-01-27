@@ -54,7 +54,7 @@
       <h1>FORMATIONS</h1>
     </div>
     <div class="col-xs-6">
-      <button type="button" class="btn btn-pad btn-success pull-right" data-toggle="modal" data-target="#myModal">
+      <button *ngIf="isTeacher == 1" type="button" class="btn btn-pad btn-success pull-right" data-toggle="modal" data-target="#myModal">
         Ajouter une formation
       </button>
     </div>
@@ -87,13 +87,15 @@
                         <div class="">
                           <h2>{{lesson.subject}}</h2>
                           <br>
-                          <div class="col-xs-4">
-                            <img class="img-responsive border-blue full" src="../public/images/homme-2-min.svg" alt="">
-                          </div>
-                          <div class="col-xs-8">
-                            <p *ngIf="lesson.user">{{lesson.user.name}}</p>
-                            <div class="lead">
-                              <div id="stars" class="starrr" attr.data-rating="{{lesson.noteLesson}}"></div>
+                          <div class="detail">
+                            <div class="col-xs-4">
+                              <img class="img-responsive border-blue full" src="../public/images/homme-2-min.svg" alt="">
+                            </div>
+                            <div class="col-xs-8">
+                              <p *ngIf="lesson.username">{{lesson.username}}</p>
+                              <div class="lead">
+                                <div id="stars" class="starrr" attr.data-rating="{{lesson.noteLesson}}"></div>
+                              </div>
                             </div>
                           </div>
                         </div>

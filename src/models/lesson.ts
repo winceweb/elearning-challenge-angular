@@ -12,4 +12,5 @@ export class Lesson {
   idCategory: number;
   created_at: any;
   updated_at: any;
+  username: string;
 }
