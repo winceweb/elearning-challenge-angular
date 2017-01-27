@@ -141,8 +141,7 @@ export class LessonComponent implements AfterViewInit {
       if (!this.addLessonForm.value) { return; }
       this.lessonService.create(this.addLessonForm.value)
       .then(lesson => {
-        this.lessons.push(this.addLessonForm.value);
-        console.log(this.lessons);
+        this.values.push(this.addLessonForm.value);
       });
       // this.router.navigate(['/lesson', lesson.idLesson]);
       // console.log(event);
@@ -153,13 +152,13 @@ export class LessonComponent implements AfterViewInit {
       this.lessonService
       .delete(lesson.idLesson)
       .then(() => {
-        this.lessons = this.lessons.filter(h => h !== lesson);
+        this.values = this.values.filter(h => h !== lesson);
         if (this.selectedLesson === lesson) { this.selectedLesson = null; }
       });
     }
 
     ngOnInit(): void {
-      this.getLessons();
+      this.getLesByCat(1);
       this.getCategories();
     }
 

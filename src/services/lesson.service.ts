@@ -50,9 +50,10 @@ export class LessonService {
       .catch(this.handleError);
   }
 
-  rateLesson(note: Note): Promise<Lesson> {
+  rateLesson(id: number, value: number): Promise<string> {
+    console.log('entre dans rateLesson');
     return this.http
-      .post('http://localhost:8000/api/v1/ratings', JSON.stringify(note), {headers: this.headers})
+      .post('http://localhost:8000/api/v1/ratings', {rateable_id: id, value: value, rateable_type: 1}, {headers: this.headers})
       .toPromise()
       .then(res => res.json().data)
       .catch(this.handleError);

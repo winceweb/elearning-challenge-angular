@@ -15,208 +15,60 @@ n viittä vuosisataa, mutta myös loikan elektroniseen kirjoitukseen, jääden s
     <div class="row">
 		<div class="col-md-12">
 			<h1>FORMATIONS</h1>
+			<div>
+	      <div class="tabbable-panel">
+	        <div class="tabbable-line">
+	          <ul class="nav nav-tabs ">
+	            <li *ngFor="let category of categories; let isFirst = first" [class.active]="isFirst">
+	              <a (click)="getLesByCat(category.idCategory)" href="#tab_default_1" data-toggle="tab">
+	                {{category.title}} <!-- {{category.idCategory}} -->
+	              </a>
+	            </li>
+	          </ul>
+	          <div class="tab-content">
+	            <div class="tab-pane active" id="tab_default_1">
+	                <div class="row">
+	                  <div *ngFor="let lesson of values">
 
-			<div class="tabbable-panel">
-				<div class="tabbable-line">
-					<ul class="nav nav-tabs ">
-						<li class="active">
-							<a href="#tab_default_1" data-toggle="tab">
-							Angular </a>
-						</li>
-						<li>
-							<a href="#tab_default_2" data-toggle="tab">
-							PHP </a>
-						</li>
-						<li>
-							<a href="#tab_default_3" data-toggle="tab">
-							Jquery </a>
-						</li>
-						<li>
-							<a href="#tab_default_4" data-toggle="tab">
-							Symfony </a>
-						</li>
-						<li>
-							<a href="#tab_default_5" data-toggle="tab">
-							Laravel </a>
-						</li>
-						<li>
-							<a href="#tab_default_6" data-toggle="tab">
-							MVC </a>
-						</li>
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="tab_default_1">
-							<div class="row">
-								<div class="col-xs-12 col-sm-3 mobs-2" data-wow-duration="1s" data-wow-delay=".5s">
-									<div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
-										<!-- PHONE -->
-										<a href="news_press_la">
-											<img class="img-responsive border-blue full" src="../public/images/cat-1.png" alt="">
-										</a>
-									</div>
-									<div class="back-white2 shadows">
-										<!-- TITLE -->
-										<div class="">
-											<h2>Crédit Agricole Payment Services is experimenting Pop & Work</h2>
-				                            <br>
-											<div class="col-xs-4">
-				                            	<img class="img-responsive border-blue full" src="../public/images/homme-1-min.svg" alt="">
-				                            </div>
-				                            <div class="col-xs-8">
-												<p>Nicolas Sarbeau</p>
-												<div class="lead">
-										        	<div id="stars" class="starrr"></div>
-												</div>
-											</div>
-										</div>
-											<a class="pull-right btn btn-success" href="http://j.mp/metronictheme" target="_blank">Voir le cours</a>
-									</div>
-								</div>
-								<div class="col-xs-12 col-sm-3 mobs-2" data-wow-duration="1s" data-wow-delay=".5s">
-									<div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
-										<!-- PHONE -->
-										<a href="news_press_la">
-											<img class="img-responsive border-blue full" src="../public/images/cat-3.png" alt="">
-										</a>
-									</div>
-									<div class="back-white2 shadows">
-										<!-- TITLE -->
-										<div class="">
-											<h2>Crédit Agricole Payment Services is experimenting Pop & Work</h2>
-				                            <br>
-											<div class="col-xs-4">
-				                            	<img class="img-responsive border-blue full" src="../public/images/homme-2-min.svg" alt="">
-				                            </div>
-				                            <div class="col-xs-8">
-												<p>Nicolas Sarbeau</p>
-												<div class="lead">
-										        	<div id="stars" class="starrr"></div>
-												</div>
-											</div>
-										</div>
-											<a class="pull-right btn btn-success" href="http://j.mp/metronictheme" target="_blank">Voir le cours</a>
-									</div>
-								</div>
-								<div class="col-xs-12 col-sm-3 mobs-2" data-wow-duration="1s" data-wow-delay=".5s">
-									<div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
-										<!-- PHONE -->
-										<a href="news_press_la">
-											<img class="img-responsive border-blue full" src="../public/images/cat-2.png" alt="">
-										</a>
-									</div>
-									<div class="back-white2 shadows">
-										<!-- TITLE -->
-										<div class="">
-											<h2>Crédit Agricole Payment Services is experimenting Pop & Work</h2>
-				                            <br>
-											<div class="col-xs-4">
-				                            	<img class="img-responsive border-blue full" src="../public/images/homme-3-min.svg" alt="">
-				                            </div>
-				                            <div class="col-xs-8">
-												<p>Nicolas Sarbeau</p>
-												<div class="lead">
-										        	<div id="stars" name="stars[]" class="starrr"></div>
-												</div>
-											</div>
-										</div>
-											<a class="pull-right btn btn-success" href="http://j.mp/metronictheme" target="_blank">Voir le cours</a>
-									</div>
-								</div>
-								<div class="col-xs-12 col-sm-3 mobs-2" data-wow-duration="1s" data-wow-delay=".5s">
-									<div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
-										<!-- PHONE -->
-										<a href="news_press_la">
-											<img class="img-responsive border-blue full" src="../public/images/cat-4.png" alt="">
-										</a>
-									</div>
-									<div class="back-white2 shadows">
-										<!-- TITLE -->
-										<div class="">
-											<h2>Crédit Agricole Payment Services is experimenting Pop & Work</h2>
-				                            <br>
-				                            <div class="col-xs-4">
-				                            	<img class="img-responsive border-blue full" src="../public/images/femme-1-min.svg" alt="">
-				                            </div>
-				                            <div class="col-xs-8">
-												<p>Nicolas Sarbeau</p>
-												<div class="lead">
-										        	<div id="stars" class="starrr"></div>
-												</div>
-											</div>
-										</div>
-											<a class="pull-right btn btn-success" href="http://j.mp/metronictheme" target="_blank">Voir le cours</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="tab_default_2">
-							<p>
-								Howdy, I'm in Tab 2.
-							</p>
-							<p>
-								Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. Ut wisi enim ad minim veniam, quis nostrud exerci tation.
-							</p>
-							<p>
-								<a class="btn btn-warning" href="http://j.mp/metronictheme" target="_blank">
-									Click for more features...
-								</a>
-							</p>
-						</div>
-						<div class="tab-pane" id="tab_default_3">
-							<p>
-								Howdy, I'm in Tab 3.
-							</p>
-							<p>
-								Duis autem vel eum iriure dolor in hendrerit in vulputate. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
-							</p>
-							<p>
-								<a class="btn btn-info" href="http://j.mp/metronictheme" target="_blank">
-									Voir le cours
-								</a>
-							</p>
-						</div>
-						<div class="tab-pane" id="tab_default_4">
-							<p>
-								Howdy, I'm in Tab 3.
-							</p>
-							<p>
-								Duis autem vel eum iriure dolor in hendrerit in vulputate. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
-							</p>
-							<p>
-								<a class="btn btn-info" href="http://j.mp/metronictheme" target="_blank">
-									Voir le cours
-								</a>
-							</p>
-						</div>
-						<div class="tab-pane" id="tab_default_5">
-							<p>
-								Howdy, I'm in Tab 3.
-							</p>
-							<p>
-								Duis autem vel eum iriure dolor in hendrerit in vulputate. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
-							</p>
-							<p>
-								<a class="btn btn-info" href="http://j.mp/metronictheme" target="_blank">
-									Voir le cours
-								</a>
-							</p>
-						</div>
-						<div class="tab-pane" id="tab_default_6">
-							<p>
-								Howdy, I'm in Tab 3.
-							</p>
-							<p>
-								Duis autem vel eum iriure dolor in hendrerit in vulputate. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
-							</p>
-							<p>
-								<a class="btn btn-info" href="http://j.mp/metronictheme" target="_blank">
-									Voir le cours
-								</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
+	                    <div class="col-xs-12 col-sm-3 mobs-2" data-wow-duration="1s" data-wow-delay=".5s">
+	                      <div class="about_phone wow fadeInLeft" data-wow-duration="1s" data-wow-delay=".5s">
+	                        <!-- PHONE -->
+	                        <a (click)="gotoDetail(lesson)">
+	                          <img class="img-responsive border-blue full max" [src]="lesson.image" alt="">
+	                        </a>
+	                      </div>
+	                      <div class="back-white2 shadows">
+	                        <!-- TITLE -->
+	                        <div class="">
+	                          <h2>{{lesson.subject}}</h2>
+	                          <br>
+	                          <div class="col-xs-4">
+	                            <img class="img-responsive border-blue full" src="../public/images/homme-2-min.svg" alt="">
+	                          </div>
+	                          <div class="col-xs-8">
+	                            <p *ngIf="lesson.user">{{lesson.user.name}}</p>
+	                            <div class="lead">
+	                              <div id="stars" class="starrr" attr.data-rating="{{lesson.noteLesson}}"></div>
+	                            </div>
+	                          </div>
+	                        </div>
+
+	                        <button *ngIf="isTeacher" class="delete fl-topri pull-right btn btn-danger"
+	                        (click)="delete(lesson); $event.stopPropagation()">x</button>
+
+	                        <button (click)="gotoDetail(lesson)" class="pull-right fl-ri btn btn-success">Voir le cours</button>
+
+	                      </div>
+	                    </div>
+	                  </div>
+
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+
 		</div>
 	</div>
 	<div class="row norme-25">

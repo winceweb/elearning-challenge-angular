@@ -54,7 +54,7 @@
       <h1>FORMATIONS</h1>
     </div>
     <div class="col-xs-6">
-      <button type="button" class="btn btn-pad btn-success pull-right btn-lg" data-toggle="modal" data-target="#myModal">
+      <button type="button" class="btn btn-pad btn-success pull-right" data-toggle="modal" data-target="#myModal">
         Ajouter une formation
       </button>
     </div>
@@ -64,7 +64,7 @@
       <div class="tabbable-panel">
         <div class="tabbable-line">
           <ul class="nav nav-tabs ">
-            <li *ngFor="let category of categories">
+            <li *ngFor="let category of categories; let isFirst = first" [class.active]="isFirst">
               <a (click)="getLesByCat(category.idCategory)" href="#tab_default_1" data-toggle="tab">
                 {{category.title}} <!-- {{category.idCategory}} -->
               </a>
